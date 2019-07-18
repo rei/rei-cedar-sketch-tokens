@@ -1,24 +1,72 @@
 {
-  "author" : "",
-  "commands" : [
-    {
-      "script" : "script.cocoascript",
-      "name" : "Do It!",
-      "handlers" : {
-        "run" : "onRun"
-      },
-      "identifier" : "test"
-    }
-  ],
-  "menu" : {
-    "title" : "CedarTokenGenerator",
-    "items" : [
-      "test"
+  "author": "James Bradford",
+  "identifier": "com.rei.sketch.plugin.rei-cedar-sketch-tokens",
+  "version": "1.0.0",
+  "description": "A sketch plugin that prints out cedar tokens as sketch assets",
+  "authorEmail": "jabradf@rei.com",
+  "homepage": "https://github.com/rei/rei-cedar-sketch-tokens.sketchplugin",
+  "name": "CedarTokenGenerator",
+  "menu": {
+    "title": "Cedar Token Generator",
+    "items": [
+      "overwrite-all",
+      "overwrite-colors",
+      "overwrite-layer-styles",
+      "overwrite-text-styles",
+      "add-all",
+      "add-colors",
+      "add-layer-styles",
+      "add-text-styles"
     ]
   },
-  "identifier" : "com.example.sketch.fbf702d2-4f2e-4480-8486-67aa5cf4d476",
-  "version" : "1.0",
-  "description" : "",
-  "authorEmail" : "",
-  "name" : "CedarTokenGenerator"
+  "commands": [
+    {
+      "name": "Overwrite All",
+      "identifier": "overwrite-all",
+      "script": "script.cocoascript",
+      "handler": "overwriteAll"
+    },
+    {
+      "name": "Add All",
+      "identifier": "add-all",
+      "script": "script.cocoascript",
+      "handler": "addAll"
+    },
+    {
+      "name": "Overwrite Document Colors",
+      "identifier": "overwrite-colors",
+      "script": "script.cocoascript",
+      "handler": "overwriteColors"
+    },
+    {
+      "name": "Add Document Colors",
+      "identifier": "add-colors",
+      "script": "script.cocoascript",
+      "handler": "addColors"
+    },
+    {
+      "name": "Overwrite Layer Styles",
+      "identifier": "overwrite-layer-styles",
+      "script": "script.cocoascript",
+      "handler": "overwriteLayerStyles"
+    },
+    {
+      "name": "Add Layer Styles",
+      "identifier": "add-layer-styles",
+      "script": "script.cocoascript",
+      "handler": "addLayerStyles"
+    },
+    {
+      "name": "Overwrite Text Styles",
+      "identifier": "overwrite-text-styles",
+      "script": "script.cocoascript",
+      "handler": "overwriteTextStyles"
+    },
+    {
+      "name": "Add Text Styles",
+      "identifier": "add-text-styles",
+      "script": "script.cocoascript",
+      "handler": "addTextStyles"
+    }
+  ]
 }

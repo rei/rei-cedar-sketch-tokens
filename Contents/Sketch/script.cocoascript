@@ -5,10 +5,15 @@ var prominence = require('./prominence.js')
 
 // const documnet = sketch.getSelectedDocument()
 
-var onRun = function (context) {
+var overwriteAll = function (context) {
   overwriteColors()
   overwriteTextStyles()
   overwriteLayerStyles()
+}
+var addAll = function (context) {
+  addColors()
+  addTextStyles()
+  addLayerStyles()
 }
 
 function overwriteColors(context) {
@@ -16,8 +21,8 @@ function overwriteColors(context) {
 }
 
 function addColors(context) {
-  sketch.getSelectedDocument().colors.push(generateColors()) // TODO: TEST
-  // sketch.getSelectedDocument().colors.push(...generateColors()) // TODO: TEST
+  // sketch.getSelectedDocument().colors.push(generateColors()) // TODO: TEST
+  sketch.getSelectedDocument().colors.push(...generateColors()) // TODO: TEST
 }
 
 function overwriteTextStyles(context) {
@@ -25,8 +30,8 @@ function overwriteTextStyles(context) {
 }
 
 function addTextStyles(context) {
-  sketch.getSelectedDocument().sharedTextStyles.push(generateTextStyles()) // TODO: TEST
-  // sketch.getSelectedDocument().sharedTextStyles.push(...generateTextStyles()) // TODO: TEST
+  // sketch.getSelectedDocument().sharedTextStyles.push(generateTextStyles()) // TODO: TEST
+  sketch.getSelectedDocument().sharedTextStyles.push(...generateTextStyles()) // TODO: TEST
 }
 
 function overwriteLayerStyles(context) {
@@ -34,8 +39,8 @@ function overwriteLayerStyles(context) {
 }
 
 function addLayerStyles(context) {
-  sketch.getSelectedDocument().sharedTextStyles.push(generateLayerStyles()) // TODO: TEST
-  // sketch.getSelectedDocument().sharedTextStyles.push(...generateLayerStyles()) // TODO: TEST
+  // sketch.getSelectedDocument().sharedTextStyles.push(generateLayerStyles()) // TODO: TEST
+  sketch.getSelectedDocument().sharedTextStyles.push(...generateLayerStyles()) // TODO: TEST
 }
 
 function generateColors() {
