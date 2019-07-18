@@ -1,15 +1,18 @@
-var sketch = require('sketch');
-var platformTokens = require('./platform-tokens.js')
-var typography = require('./new-typo.js')
-var prominence = require('./prominence.js')
-
+var sketch = require('sketch')
 const document = sketch.getSelectedDocument()
+
+var platformTokens = require('../Resources/platform-tokens.js')
+var typography = require('../Resources/new-typo.js')
+var prominence = require('../Resources/prominence.js')
+
+// https://developer.sketch.com/reference/api/
 
 var overwriteAll = function (context) {
   overwriteColors()
   overwriteTextStyles()
   overwriteLayerStyles()
 }
+
 var addAll = function (context) {
   addColors()
   addTextStyles()
@@ -21,8 +24,7 @@ function overwriteColors(context) {
 }
 
 function addColors(context) {
-  // document.colors.push(generateColors()) // TODO: TEST
-  document.colors.push(...generateColors()) // TODO: TEST
+  document.colors.push(...generateColors())
 }
 
 function overwriteTextStyles(context) {
@@ -30,8 +32,7 @@ function overwriteTextStyles(context) {
 }
 
 function addTextStyles(context) {
-  // document.sharedTextStyles.push(generateTextStyles()) // TODO: TEST
-  document.sharedTextStyles.push(...generateTextStyles()) // TODO: TEST
+  document.sharedTextStyles.push(...generateTextStyles())
 }
 
 function overwriteLayerStyles(context) {
@@ -39,8 +40,7 @@ function overwriteLayerStyles(context) {
 }
 
 function addLayerStyles(context) {
-  // document.sharedTextStyles.push(generateLayerStyles()) // TODO: TEST
-  document.sharedLayerStyles.push(...generateLayerStyles()) // TODO: TEST
+  document.sharedLayerStyles.push(...generateLayerStyles())
 }
 
 function generateColors() {
@@ -75,13 +75,13 @@ function generateTextStyles(context) {
         textTokens.push({
           name: cssNameToSketch(styleName),
           style: {
-            lineHeight: typoStyle.value.line,
-            fontSize: typoStyle.value.size,
-            fontFamily: typoStyle.value.family,
-            fontWeight: typoStyle.value.weight,
+            lineHeight: typoStyle.value.lineHeight,
+            fontSize: typoStyle.value.fontSize,
+            fontFamily: typoStyle.value.fontFamily,
+            fontWeight: typoStyle.value.fontWeight,
+            textTransform: typoStyle.value.textTransform,
             textColor: typoColor.value,
             alignment: typoAlign.value,
-            textTransform: typoStyle.value.transform,
             borders: []
           }
         })
