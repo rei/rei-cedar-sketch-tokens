@@ -1,0 +1,24 @@
+{
+  "author" : "",
+  "commands" : [
+    {
+      "script" : "script.cocoascript",
+      "name" : "Do It!",
+      "handlers" : {
+        "run" : "onRun"
+      },
+      "identifier" : "test"
+    }
+  ],
+  "menu" : {
+    "title" : "CedarTokenGenerator",
+    "items" : [
+      "test"
+    ]
+  },
+  "identifier" : "com.example.sketch.fbf702d2-4f2e-4480-8486-67aa5cf4d476",
+  "version" : "1.0",
+  "description" : "",
+  "authorEmail" : "",
+  "name" : "CedarTokenGenerator"
+}
