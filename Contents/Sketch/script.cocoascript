@@ -3,7 +3,7 @@ var platformTokens = require('./platform-tokens.js')
 var typography = require('./new-typo.js')
 var prominence = require('./prominence.js')
 
-// const documnet = sketch.getSelectedDocument()
+const document = sketch.getSelectedDocument()
 
 var overwriteAll = function (context) {
   overwriteColors()
@@ -17,30 +17,30 @@ var addAll = function (context) {
 }
 
 function overwriteColors(context) {
-  sketch.getSelectedDocument().colors = generateColors();
+  document.colors = generateColors();
 }
 
 function addColors(context) {
-  // sketch.getSelectedDocument().colors.push(generateColors()) // TODO: TEST
-  sketch.getSelectedDocument().colors.push(...generateColors()) // TODO: TEST
+  // document.colors.push(generateColors()) // TODO: TEST
+  document.colors.push(...generateColors()) // TODO: TEST
 }
 
 function overwriteTextStyles(context) {
-  sketch.getSelectedDocument().sharedTextStyles = generateTextStyles();
+  document.sharedTextStyles = generateTextStyles();
 }
 
 function addTextStyles(context) {
-  // sketch.getSelectedDocument().sharedTextStyles.push(generateTextStyles()) // TODO: TEST
-  sketch.getSelectedDocument().sharedTextStyles.push(...generateTextStyles()) // TODO: TEST
+  // document.sharedTextStyles.push(generateTextStyles()) // TODO: TEST
+  document.sharedTextStyles.push(...generateTextStyles()) // TODO: TEST
 }
 
 function overwriteLayerStyles(context) {
-  sketch.getSelectedDocument().sharedLayerStyles = generateLayerStyles()
+  document.sharedLayerStyles = generateLayerStyles()
 }
 
 function addLayerStyles(context) {
-  // sketch.getSelectedDocument().sharedTextStyles.push(generateLayerStyles()) // TODO: TEST
-  sketch.getSelectedDocument().sharedTextStyles.push(...generateLayerStyles()) // TODO: TEST
+  // document.sharedTextStyles.push(generateLayerStyles()) // TODO: TEST
+  document.sharedLayerStyles.push(...generateLayerStyles()) // TODO: TEST
 }
 
 function generateColors() {
