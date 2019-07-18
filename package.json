@@ -1,0 +1,29 @@
+{
+  "name": "rei-cedar-sketch-tokens.sketchplugin",
+  "version": "1.0.0",
+  "description": "A sketch plugin that prints out cedar tokens as sketch assets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rei/rei-cedar-sketch-tokens.sketchplugin.git"
+  },
+  "keywords": [
+    "sketch",
+    "cedar",
+    "rei",
+    "design",
+    "system"
+  ],
+  "author": "James Bradford",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rei/rei-cedar-sketch-tokens.sketchplugin/issues"
+  },
+  "homepage": "https://github.com/rei/rei-cedar-sketch-tokens.sketchplugin#readme",
+  "dependencies": {
+    "@rei/cdr-tokens": "^1.1.1"
+  }
+}
