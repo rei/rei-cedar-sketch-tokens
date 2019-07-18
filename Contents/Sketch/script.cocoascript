@@ -5,6 +5,11 @@ var platformTokens = require('../Resources/platform-tokens.js')
 var typography = require('../Resources/new-typo.js')
 var prominence = require('../Resources/prominence.js')
 
+const sketchTokens = require('../Resources/sketchTokens.js')
+const colorTokens = sketchTokens.colors
+const textTokens = sketchTokens.text
+const prominenceTokens = sketchTokens.prominence
+
 // https://developer.sketch.com/reference/api/
 
 var overwriteAll = function (context) {
@@ -44,6 +49,11 @@ function addLayerStyles(context) {
 }
 
 function generateColors() {
+  log(platformTokens.global.colors.map(color => ({
+    name: color.name,
+    value: color.value,
+    type: color.docs.type
+  })))
   return platformTokens.global.colors.map(color => ({
     name: cssNameToSketch(color.name.substring(10)),
     color: color.value
@@ -51,7 +61,7 @@ function generateColors() {
 }
 
 function generateTextStyles(context) {
-  const textTokens = [];
+  const textTokens = []
   const typoColors = platformTokens.global.colors.filter(color => color.docs.type === 'text')
   const typoAlignment = [
     {
