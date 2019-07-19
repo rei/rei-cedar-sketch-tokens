@@ -2,81 +2,78 @@ module.exports = {
 
     // SHADOWS //
     prominence: [
-        [
-            {
-                name: 'cdr-prominence-00',
-                value: []
-            },
-            {
-                name: 'cdr-prominence-10',
-                value: [
-                    {
-                        color: '#00000022',
-                        x: 0,
-                        y: 0,
-                        blur: 4,
-                    },
-                    {
-                        color: '#00000011',
-                        x: 0,
-                        y: 2,
-                        blur: 4,
-                    },
-                ]
-            },
-            {
-                name: 'cdr-prominence-20',
-                value: [
-                    {
-                        color: '#00000022',
-                        x: 0,
-                        y: 2,
-                        blur: 4,
-                    },
-                    {
-                        color: '#00000011',
-                        x: 0,
-                        y: 3,
-                        blur: 9,
-                    },
-                ]
-            },
-            {
-                name: 'cdr-prominence-30',
-                value: [
-                    {
-                        color: '#00000022',
-                        x: 0,
-                        y: 4,
-                        blur: 8,
-                    },
-                    {
-                        color: '#00000011',
-                        x: 0,
-                        y: 4,
-                        blur: 16,
-                    },
-                ]
-            },
-            {
-                name: 'cdr-prominence-40',
-                value: [
-                    {
-                        color: '#00000022',
-                        x: 0,
-                        y: 8,
-                        blur: 16,
-                    },
-                    {
-                        color: '#00000011',
-                        x: 0,
-                        y: 5,
-                        blur: 25,
-                    },
-                ]
-            },
-
-        ]
+        {
+            name: "cdr-prominence-00",
+            value: []
+        },
+        {
+            name: "cdr-prominence-10",
+            value: [
+                {
+                    color: "#00000022",
+                    x: 0,
+                    y: 0,
+                    blur: 4,
+                },
+                {
+                    color: "#00000011",
+                    x: 0,
+                    y: 2,
+                    blur: 4,
+                },
+            ]
+        },
+        {
+            name: "cdr-prominence-20",
+            value: [
+                {
+                    color: "#00000022",
+                    x: 0,
+                    y: 2,
+                    blur: 4,
+                },
+                {
+                    color: "#00000011",
+                    x: 0,
+                    y: 3,
+                    blur: 9,
+                },
+            ]
+        },
+        {
+            name: "cdr-prominence-30",
+            value: [
+                {
+                    color: "#00000022",
+                    x: 0,
+                    y: 4,
+                    blur: 8,
+                },
+                {
+                    color: "#00000011",
+                    x: 0,
+                    y: 4,
+                    blur: 16,
+                },
+            ]
+        },
+        {
+            name: "cdr-prominence-40",
+            value: [
+                {
+                    color: "#00000022",
+                    x: 0,
+                    y: 8,
+                    blur: 16,
+                },
+                {
+                    color: "#00000011",
+                    x: 0,
+                    y: 5,
+                    blur: 25,
+                },
+            ]
+        },
     ],
 
     // TYPOGRAPHY //
@@ -84,83 +81,83 @@ module.exports = {
 
         // HEADINGS //
         {
-            name: 'cdr-text-heading-800',
+            name: "cdr-text-heading-800",
             value: {
-                fontFamily: 'REI Stuart App',
+                fontFamily: "REI Stuart App",
                 fontWeight: 10,
                 fontSize: 48,
                 lineHeight: 60,
-                spacing: 0.01,
+                letterSpacing: 0.01,
             },
         },
         {
-            name: 'cdr-text-heading-700',
+            name: "cdr-text-heading-700",
             value: {
-                fontFamily: 'REI Stuart App',
+                fontFamily: "REI Stuart App",
                 fontWeight: 10,
                 fontSize: 38,
                 lineHeight: 48,
-                spacing: 0.0075,
+                letterSpacing: 0.0075,
             },
         },
         {
-            name: 'cdr-text-heading-600',
+            name: "cdr-text-heading-600",
             value: {
-                fontFamily: 'REI Stuart App',
+                fontFamily: "REI Stuart App",
                 fontWeight: 10,
                 fontSize: 32,
                 lineHeight: 40,
-                spacing: 0.005,
+                letterSpacing: 0.005,
             },
         },
         {
-            name: 'cdr-text-heading-500',
+            name: "cdr-text-heading-500",
             value: {
-                fontFamily: 'REI Stuart App',
+                fontFamily: "REI Stuart App",
                 fontWeight: 10,
                 fontSize: 28,
                 lineHeight: 32,
-                spacing: -0.0025,
+                letterSpacing: -0.0025,
             },
         },
         {
-            name: 'cdr-text-heading-400',
+            name: "cdr-text-heading-400",
             value: {
-                fontFamily: 'REI Stuart App',
+                fontFamily: "REI Stuart App",
                 fontWeight: 10,
                 fontSize: 24,
                 lineHeight: 32,
-                spacing: 0,
+                letterSpacing: 0,
             },
         },
         {
-            name: 'cdr-text-heading-300',
+            name: "cdr-text-heading-300",
             value: {
-                fontFamily: 'REI Stuart App',
+                fontFamily: "REI Stuart App",
                 fontWeight: 10,
                 fontSize: 20,
                 lineHeight: 26,
-                spacing: 0.005,
+                letterSpacing: 0.005,
             },
         },
         {
-            name: 'cdr-text-heading-200',
+            name: "cdr-text-heading-200",
             value: {
-                fontFamily: 'REI Stuart App',
+                fontFamily: "REI Stuart App",
                 fontWeight: 10,
                 fontSize: 18,
                 lineHeight: 24,
-                spacing: 0.01,
+                letterSpacing: 0.01,
             },
         },
         {
-            name: 'cdr-text-heading-100',
+            name: "cdr-text-heading-100",
             value: {
-                fontFamily: 'REI Stuart App',
+                fontFamily: "REI Stuart App",
                 fontWeight: 10,
                 fontSize: 14,
                 lineHeight: 20,
-                spacing: 0.015,
+                letterSpacing: 0.015,
             },
         },
 
@@ -168,86 +165,86 @@ module.exports = {
 
         // DAT BOD //
         {
-            name: 'cdr-text-body-400',
+            name: "cdr-text-body-400",
             value: {
-                fontFamily: 'REI Stuart App',
+                fontFamily: "REI Stuart App",
                 fontWeight: 6,
                 fontSize: 20,
                 lineHeight: 32,
-                spacing: 0,
+                letterSpacing: 0,
             },
         },
         {
-            name: 'cdr-text-body-300',
+            name: "cdr-text-body-300",
             value: {
-                fontFamily: 'REI Stuart App',
+                fontFamily: "REI Stuart App",
                 fontWeight: 6,
                 fontSize: 18,
                 lineHeight: 28,
-                spacing: 0,
+                letterSpacing: 0,
             },
         },
         {
-            name: 'cdr-text-body-200',
+            name: "cdr-text-body-200",
             value: {
-                fontFamily: 'REI Stuart App',
+                fontFamily: "REI Stuart App",
                 fontWeight: 6,
                 fontSize: 16,
                 lineHeight: 24,
-                spacing: 0,
+                letterSpacing: 0,
             },
         },
         {
-            name: 'cdr-text-body-sans-400',
+            name: "cdr-text-body-sans-400",
             value: {
-                fontFamily: 'Graphik App',
+                fontFamily: "Graphik App",
                 fontWeight: 6,
                 fontSize: 20,
                 lineHeight: 32,
-                spacing: 0,
+                letterSpacing: 0,
             },
         },
         {
-            name: 'cdr-text-body-sans-300',
+            name: "cdr-text-body-sans-300",
             value: {
-                fontFamily: 'Graphik App',
+                fontFamily: "Graphik App",
                 fontWeight: 6,
                 fontSize: 18,
                 lineHeight: 28,
-                spacing: 0,
+                letterSpacing: 0,
             },
         },
         {
-            name: 'cdr-text-body-sans-200',
+            name: "cdr-text-body-sans-200",
             value: {
-                fontFamily: 'Graphik App',
+                fontFamily: "Graphik App",
                 fontWeight: 6,
                 fontSize: 16,
                 lineHeight: 24,
-                spacing: 0,
+                letterSpacing: 0,
             },
         },
         {
-            name: 'cdr-text-body-sans-100',
+            name: "cdr-text-body-sans-100",
             value: {
-                fontFamily: 'Graphik App',
+                fontFamily: "Graphik App",
                 fontWeight: 6,
                 fontSize: 14,
                 lineHeight: 20,
-                spacing: 0,
+                letterSpacing: 0,
             },
         },
 
         // UTIL //
         {
-            name: 'cdr-text-heading-label-150',
+            name: "cdr-text-heading-label-150",
             value: {
-                fontFamily: 'Graphik App',
+                fontFamily: "Graphik App",
                 fontWeight: 8,
                 fontSize: 12,
                 lineHeight: 16,
-                spacing: 0,
-                textTransform: 'uppercase',
+                letterSpacing: 0,
+                textTransform: "uppercase",
             },
         },
     ],

@@ -1,9 +1,9 @@
 var sketch = require('sketch')
 const document = sketch.getSelectedDocument()
 
-var platformTokens = require('../Resources/platform-tokens.js')
-var typography = require('../Resources/new-typo.js')
-var prominence = require('../Resources/prominence.js')
+// var platformTokens = require('../Resources/platform-tokens.js')
+// var typography = require('../Resources/new-typo.js')
+// var prominence = require('../Resources/prominence.js')
 
 const sketchTokens = require('../Resources/sketchTokens.js')
 const colorTokens = sketchTokens.colors
@@ -49,21 +49,16 @@ function addLayerStyles(context) {
 }
 
 function generateColors() {
-  log(platformTokens.global.colors.map(color => ({
-    name: color.name,
-    value: color.value,
-    type: color.docs.type
-  })))
-  return platformTokens.global.colors.map(color => ({
+  return colorTokens.map(color => ({
     name: cssNameToSketch(color.name.substring(10)),
     color: color.value
   }))
 }
 
 function generateTextStyles(context) {
-  const textTokens = []
-  const typoColors = platformTokens.global.colors.filter(color => color.docs.type === 'text')
-  const typoAlignment = [
+  const textStyles = []
+  const textColorTokens = colorTokens.filter(color => color.type === 'text')
+  const textAlignment = [
     {
       name: 'left',
       value: sketch.Text.Alignment.left
@@ -77,48 +72,48 @@ function generateTextStyles(context) {
       value: sketch.Text.Alignment.right
     },
   ]
-  typography.forEach(typoStyle => {
-    typoColors.forEach(typoColor => {
-      const typoColorName = typoColor.name.substring(15)
-      typoAlignment.forEach(typoAlign => {
-        const styleName = `${typoStyle.name.substring(9)}-${typoColorName}-${typoAlign.name}`
-        textTokens.push({
+  textTokens.forEach(textToken => {
+    textColorTokens.forEach(textColor => {
+      const textColorName = textColor.name.substring(15)
+      textAlignment.forEach(textAlign => {
+        const styleName = `${textToken.name.substring(9)}-${textColorName}-${textAlign.name}`
+        textStyles.push({
           name: cssNameToSketch(styleName),
           style: {
-            lineHeight: typoStyle.value.lineHeight,
-            fontSize: typoStyle.value.fontSize,
-            fontFamily: typoStyle.value.fontFamily,
-            fontWeight: typoStyle.value.fontWeight,
-            textTransform: typoStyle.value.textTransform,
-            textColor: typoColor.value,
-            alignment: typoAlign.value,
+            lineHeight: textToken.value.lineHeight,
+            fontSize: textToken.value.fontSize,
+            fontFamily: textToken.value.fontFamily,
+            fontWeight: textToken.value.fontWeight,
+            textTransform: textToken.value.textTransform,
+            textColor: textColor.value,
+            alignment: textAlign.value,
             borders: []
           }
         })
       })
     })
   })
-  return textTokens
+  return textStyles
 }
 
 function generateLayerStyles() {
-  let layerStyles = platformTokens.global.colors
+  let layerStyles = colorTokens
     // .filter(color=>color.docs.type !== 'text') // keeping text styles for flexibility
     .map(color => {
       return {
         name: cssNameToSketch(color.name.substring(10)),
         style: {
-          fills: color.docs.type === 'border' ? [] : [{
+          fills: color.type === 'border' ? [] : [{
             color: color.value,
           }],
-          borders: color.docs.type !== 'border' ? [] : [{
+          borders: color.type !== 'border' ? [] : [{
             color: color.value,
             position: sketch.Style.BorderPosition.Inside
           }],
         }
       }
     })
-  layerStyles = layerStyles.concat(prominence.map(prom => {
+  layerStyles = layerStyles.concat(prominenceTokens.map(prom => {
     return {
       name: cssNameToSketch(prom.name.substring(4)),
       style: {
