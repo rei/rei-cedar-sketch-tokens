@@ -9,7 +9,9 @@
   "menu": {
     "title": "Cedar Token Generator",
     "items": [
-      "overwrite-all",
+      "overwrite-all"
+    ],
+    "unused-items": [
       "overwrite-colors",
       "overwrite-layer-styles",
       "overwrite-text-styles",
