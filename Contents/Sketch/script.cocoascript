@@ -97,23 +97,55 @@ function generateTextStyles(context) {
 }
 
 function generateLayerStyles() {
-  let layerStyles = colorTokens
+
+  let fillStyles = []
+  let borderStyles = []
+  let lineStyles = []
+
+  colorTokens
     // .filter(color=>color.docs.type !== 'text') // keeping text styles for flexibility
-    .map(color => {
-      return {
-        name: cssNameToSketch(color.name.substring(10)),
-        style: {
-          fills: color.type === 'border' ? [] : [{
-            color: color.value,
-          }],
-          borders: color.type !== 'border' ? [] : [{
-            color: color.value,
-            position: sketch.Style.BorderPosition.Inside
-          }],
-        }
+    .forEach(color => {
+
+      if (color.type === 'border') {
+
+        // Borders with inset lines
+        borderStyles.push({
+          name: cssNameToSketch(color.name.substring(10)),
+          style: {
+            borders: [{
+              color: color.value,
+              position: sketch.Style.BorderPosition.Inside
+            }],
+          }
+        })
+
+        // Lines have centered line positions
+        lineStyles.push({
+          name: cssNameToSketch(color.name.substring(10).replace('border', 'line')),
+          style: {
+            borders: [{
+              color: color.value,
+              position: sketch.Style.BorderPosition.Center
+            }],
+          }
+        })
+
+      } else {
+
+        fillStyles.push({
+          name: cssNameToSketch(color.name.substring(10)),
+          style: {
+            fills: [{
+              color: color.value,
+            }],
+            borders: []
+          }
+        })
+
       }
     })
-  layerStyles = layerStyles.concat(prominenceTokens.map(prom => {
+
+  let prominenceStyles = prominenceTokens.map(prom => {
     return {
       name: cssNameToSketch(prom.name.substring(4)),
       style: {
@@ -121,7 +153,15 @@ function generateLayerStyles() {
         borders: []
       }
     }
-  }))
+  })
+
+  const layerStyles = [].concat(
+    fillStyles,
+    borderStyles,
+    // lineStyles, // replace 'border' with 'line' tokens will be confuse?
+    prominenceStyles
+  )
+
   return layerStyles
 }
 
