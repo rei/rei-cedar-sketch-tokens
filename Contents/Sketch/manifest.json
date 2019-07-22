@@ -10,13 +10,6 @@
     "title": "Cedar Token Generator",
     "items": [
       "overwrite-all",
-      "overwrite-colors",
-      "overwrite-layer-styles",
-      "overwrite-text-styles",
-      "add-all",
-      "add-colors",
-      "add-layer-styles",
-      "add-text-styles",
       "delete-all"
     ],
     "unused-items": []
@@ -27,48 +20,6 @@
       "identifier": "overwrite-all",
       "script": "script.cocoascript",
       "handler": "overwriteAll"
-    },
-    {
-      "name": "Add All",
-      "identifier": "add-all",
-      "script": "script.cocoascript",
-      "handler": "addAll"
-    },
-    {
-      "name": "Overwrite Document Colors",
-      "identifier": "overwrite-colors",
-      "script": "script.cocoascript",
-      "handler": "overwriteColors"
-    },
-    {
-      "name": "Add Document Colors",
-      "identifier": "add-colors",
-      "script": "script.cocoascript",
-      "handler": "addColors"
-    },
-    {
-      "name": "Overwrite Layer Styles",
-      "identifier": "overwrite-layer-styles",
-      "script": "script.cocoascript",
-      "handler": "overwriteLayerStyles"
-    },
-    {
-      "name": "Add Layer Styles",
-      "identifier": "add-layer-styles",
-      "script": "script.cocoascript",
-      "handler": "addLayerStyles"
-    },
-    {
-      "name": "Overwrite Text Styles",
-      "identifier": "overwrite-text-styles",
-      "script": "script.cocoascript",
-      "handler": "overwriteTextStyles"
-    },
-    {
-      "name": "Add Text Styles",
-      "identifier": "add-text-styles",
-      "script": "script.cocoascript",
-      "handler": "addTextStyles"
     },
     {
       "name": "Delete all Styles & Assets",
