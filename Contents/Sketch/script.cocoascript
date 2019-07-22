@@ -24,6 +24,12 @@ var addAll = function (context) {
   addLayerStyles()
 }
 
+function deleteAll(context) {
+  document.colors = []
+  document.sharedTextStyles = []
+  document.sharedLayerStyles = []
+}
+
 function overwriteColors(context) {
   document.colors = generateColors();
 }
@@ -33,7 +39,9 @@ function addColors(context) {
 }
 
 function overwriteTextStyles(context) {
-  document.sharedTextStyles = generateTextStyles();
+  // document.sharedTextStyles = generateTextStyles();
+  setStyles(document.sharedTextStyles, generateTextStyles(), true)
+
 }
 
 function addTextStyles(context) {
@@ -41,7 +49,9 @@ function addTextStyles(context) {
 }
 
 function overwriteLayerStyles(context) {
-  document.sharedLayerStyles = generateLayerStyles()
+  // document.sharedLayerStyles = generateLayerStyles()
+  // document.sharedLayerStyles = mergeNamedArrays(document.sharedLayerStyles, generateLayerStyles())
+  setStyles(document.sharedLayerStyles, generateLayerStyles())
 }
 
 function addLayerStyles(context) {
@@ -155,11 +165,20 @@ function generateLayerStyles() {
     }
   })
 
+  let noneStyle = [{
+    name: 'None',
+    style: {
+      fills: [],
+      borders: []
+    }
+  }]
+
   const layerStyles = [].concat(
     fillStyles,
     borderStyles,
     // lineStyles, // replace 'border' with 'line' tokens will be confuse?
-    prominenceStyles
+    prominenceStyles,
+    noneStyle
   )
 
   return layerStyles
@@ -168,3 +187,70 @@ function generateLayerStyles() {
 // UTIL FUNCTIONS // 
 const cssNameToSketch = string => string.split('-').map(substring => stringCapitalizeFistLetter(substring)).join('/')
 const stringCapitalizeFistLetter = string => string.charAt(0).toUpperCase() + string.slice(1)
+
+function mergeNamedArrays(oldArray, newArr) {
+
+  const mergedMap = {}
+
+  oldArray.forEach(oldItem => {
+    mergedMap[oldItem.name] = oldItem
+  })
+
+  newArr.forEach(newItem => {
+    if (mergedMap[newItem.name] == null) {
+      // add a new item
+      mergedMap[newItem.name] = newItem
+    } else {
+      // overwrite, but keep the id
+      const id = mergedMap[newItem.name].id
+      mergedMap[newItem.name] = newItem
+      mergedMap[newItem.name].id = id
+    }
+  })
+
+  const mergedArray = []
+
+  for (const name in mergedMap) {
+    if (mergedMap.hasOwnProperty(name)) {
+      const item = mergedMap[name];
+      mergedArray.push(item)
+    }
+  }
+
+  console.log(mergedArray);
+  return mergedArray
+
+}
+
+function setStyles(currentStyles, newStyles, isText = false) {
+
+  // map name to id
+  const oldStylesMap = {}
+  currentStyles.forEach(currentStyle => {
+    oldStylesMap[currentStyle.name] = currentStyle.id
+  })
+
+  newStyles.forEach(newStyle => {
+
+    // TODO: test which one of these is better
+    const newStyleId = oldStylesMap[newStyle.name]
+    // const currentLayerStyle = document.getSharedLayerStyleWithID(id)
+
+    if (newStyleId == null) {
+      // it doesn't exist, so add it
+      currentStyles.push(newStyle)
+    } else {
+      // it does exist, so update it
+      const currentStyle = isText
+        ? document.getSharedTextStyleWithID(newStyleId)
+        : document.getSharedLayerStyleWithID(newStyleId)
+      currentStyle.style = {
+        ...currentStyle.style,
+        ...newStyle.style
+      }
+    }
+
+  })
+
+
+}

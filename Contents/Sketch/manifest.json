@@ -9,17 +9,17 @@
   "menu": {
     "title": "Cedar Token Generator",
     "items": [
-      "overwrite-all"
-    ],
-    "unused-items": [
+      "overwrite-all",
       "overwrite-colors",
       "overwrite-layer-styles",
       "overwrite-text-styles",
       "add-all",
       "add-colors",
       "add-layer-styles",
-      "add-text-styles"
-    ]
+      "add-text-styles",
+      "delete-all"
+    ],
+    "unused-items": []
   },
   "commands": [
     {
@@ -69,6 +69,12 @@
       "identifier": "add-text-styles",
       "script": "script.cocoascript",
       "handler": "addTextStyles"
+    },
+    {
+      "name": "Delete all Styles & Assets",
+      "identifier": "delete-all",
+      "script": "script.cocoascript",
+      "handler": "deleteAll"
     }
   ]
 }
