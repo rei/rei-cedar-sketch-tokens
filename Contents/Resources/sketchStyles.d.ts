@@ -19,7 +19,6 @@ export interface ISketchColorToken extends ISketchToken { // https://developer.s
 }
 export type ColorTokenType = "text" | "icon" | "background" | "border" // | "foreground" | "etc",
 
-
 export interface ISketchProminenceToken extends ISketchToken {
     value: ISketchShadow[]
 }
@@ -35,6 +34,7 @@ export interface ISketchTextToken extends ISketchToken { // https://developer.sk
     value: {
         fontFamily: string // ex: "REI Stuart App" | "Grapick App",
         fontWeight: number, // 0-12, 0 thinest, 12 boldest // not sure how this corosponds to light, regular, bold, black...
+        fontWeightOriginal: number | string, // whatever it was before it was translated to fontWeight
         fontSize: number, // px
         lineHeight: number, // px
         textTransform: "none" | "uppercase" | "lowercase",
