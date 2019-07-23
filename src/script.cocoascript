@@ -1,24 +1,22 @@
-var sketch = require('sketch')
+import sketch from 'sketch'
+
 const document = sketch.getSelectedDocument()
 
-// var platformTokens = require('../Resources/platform-tokens.js')
-// var typography = require('../Resources/new-typo.js')
-// var prominence = require('../Resources/prominence.js')
-
-const sketchTokens = require('../Resources/sketchTokens.js')
+import sketchTokens from './Resources/sketchTokens.js'
+// const sketchTokens = require('./Resources/sketchTokens.js')
 const colorTokens = sketchTokens.colors
 const textTokens = sketchTokens.text
 const prominenceTokens = sketchTokens.prominence
 
 // https://developer.sketch.com/reference/api/
 
-var overwriteAll = function (context) {
+export function overwriteAll(context) {
   overwriteColors()
   overwriteTextStyles()
   overwriteLayerStyles()
 }
 
-function deleteAll(context) {
+export function deleteAll(context) {
   document.colors = []
   document.sharedTextStyles = []
   document.sharedLayerStyles = []

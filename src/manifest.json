@@ -1,4 +1,6 @@
 {
+  "$schema": "https://raw.githubusercontent.com/BohemianCoding/SketchAPI/develop/docs/sketch-plugin-manifest-schema.json",
+  "icon": "icon.png",
   "author": "James Bradford",
   "identifier": "com.rei.sketch.plugin.rei-cedar-sketch-tokens",
   "version": "1.0.0",
@@ -11,8 +13,7 @@
     "items": [
       "overwrite-all",
       "delete-all"
-    ],
-    "unused-items": []
+    ]
   },
   "commands": [
     {
