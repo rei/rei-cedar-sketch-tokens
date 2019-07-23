@@ -3,9 +3,9 @@ export interface ISketchTokens {
     text: ISketchTextToken[],
     prominence: ISketchProminenceToken[],
     radius: ISketchRadiusToken[],
-    sizing: {
-        space: ISketchSizingSpaceToken[],
-        inset: ISketchSizingInsetToken[]
+    spacing: {
+        space: ISketchSpacingSpaceToken[],
+        inset: ISketchSpacingInsetToken[]
     },
     breakpoints: ISketchBreakpointToken[],
 }
@@ -51,11 +51,12 @@ export interface ISketchRadiusToken extends ISketchToken {
     value: number
 }
 
-export interface ISketchSizingSpaceToken extends ISketchToken {
+export interface ISketchSpacingSpaceToken extends ISketchToken {
     value: number
 }
 
-export interface ISketchSizingInsetToken extends ISketchToken {
+export interface ISketchSpacingInsetToken extends ISketchToken {
+    // Simiar to css padding or margin
     value: [number] | [number, number] | [number, number, number] | [number, number, number, number]
 }
 
