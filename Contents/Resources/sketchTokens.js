@@ -436,6 +436,68 @@ module.exports = {
             type: "border",
             value: "#2b6692",
         }
-    ]
+    ],
+
+    // SIZING //
+    sizing: {
+        space: [
+            {
+                name: "cdr-space-four-x",
+                value: 64,
+            }
+            // more...
+        ],
+        inset: [
+            {
+                name: "cdr-space-inset-eighth-x-squish",
+                value: [0, 2], // "0 0.2rem"
+            },
+            {
+                name: "cdr-space-inset-eighth-x-stretch",
+                value: [4, 2], // "0.4rem 0.2rem"
+            },
+            // more...
+        ]
+    },
+
+    // RADIUS //
+    radius: [
+        {
+            name: "cdr-radius-sharp",
+            value: 0
+        },
+        {
+            name: "cdr-radius-soft",
+            value: 2
+        },
+        {
+            name: "cdr-radius-softer",
+            value: 4
+        },
+        {
+            name: "cdr-radius-round",
+            value: 32
+        },
+    ],
+
+    // BREAKPOINTS //
+    breakpoints: [
+        {
+            value: 0,
+            name: "cdr-breakpoint-xs",
+        },
+        {
+            value: 768,
+            name: "cdr-breakpoint-sm",
+        },
+        {
+            value: 992,
+            name: "cdr-breakpoint-md",
+        },
+        {
+            value: 1232,
+            name: "cdr-breakpoint-lg",
+        }
+    ],
 
 }

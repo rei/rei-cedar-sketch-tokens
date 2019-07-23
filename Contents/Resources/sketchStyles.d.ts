@@ -2,10 +2,12 @@ export interface ISketchTokens {
     colors: ISketchColorToken[],
     text: ISketchTextToken[],
     prominence: ISketchProminenceToken[],
-
-    // FUTURE: we don"t need these now but might in the future //
-    // radius: ISketchRadiusToken[],
-    // sizing: ISketchSizingToken[],
+    radius: ISketchRadiusToken[],
+    sizing: {
+        space: ISketchSizingSpaceToken[],
+        inset: ISketchSizingInsetToken[]
+    },
+    breakpoints: ISketchBreakpointToken[],
 }
 
 export interface ISketchToken {
@@ -43,4 +45,20 @@ export interface ISketchTextToken extends ISketchToken { // https://developer.sk
         fontStretch?: "compressed" | "condensed" | "narrow" | "expanded" | "poster" | undefined
         textUnderline?: "single" | undefined // ??? - look at Style.textUnderline - https://developer.sketch.com/reference/api/#style
     }
+}
+
+export interface ISketchRadiusToken extends ISketchToken {
+    value: number
+}
+
+export interface ISketchSizingSpaceToken extends ISketchToken {
+    value: number
+}
+
+export interface ISketchSizingInsetToken extends ISketchToken {
+    value: [number] | [number, number] | [number, number, number] | [number, number, number, number]
+}
+
+export interface ISketchBreakpointToken extends ISketchToken {
+    value: number
 }
