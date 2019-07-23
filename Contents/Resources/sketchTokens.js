@@ -483,20 +483,20 @@ module.exports = {
     // BREAKPOINTS //
     breakpoints: [
         {
-            value: 0,
             name: "cdr-breakpoint-xs",
+            value: 0,
         },
         {
-            value: 768,
             name: "cdr-breakpoint-sm",
+            value: 768,
         },
         {
-            value: 992,
             name: "cdr-breakpoint-md",
+            value: 992,
         },
         {
-            value: 1232,
             name: "cdr-breakpoint-lg",
+            value: 1232,
         }
     ],
 
