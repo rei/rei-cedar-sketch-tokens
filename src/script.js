@@ -2,8 +2,10 @@ import sketch from 'sketch'
 
 const document = sketch.getSelectedDocument()
 
+import * as sketchTokensJson from './Resources/sketch-tokens.json'
+console.log(sketchTokensJson);
+
 import sketchTokens from './Resources/sketchTokens.js'
-// const sketchTokens = require('./Resources/sketchTokens.js')
 const colorTokens = sketchTokens.colors
 const textTokens = sketchTokens.text
 const prominenceTokens = sketchTokens.prominence
