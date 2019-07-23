@@ -5,7 +5,10 @@ const document = sketch.getSelectedDocument()
 import * as sketchTokensJson from './Resources/sketch-tokens.json'
 console.log(sketchTokensJson);
 
-import sketchTokens from './Resources/sketchTokens.js'
+import * as sketchTokens from './Resources/sketch-new-text-tokens.json'
+console.log(sketchTokens);
+
+// import sketchTokens from './Resources/sketchTokens.js'
 const colorTokens = sketchTokens.colors
 const textTokens = sketchTokens.text
 const prominenceTokens = sketchTokens.prominence
