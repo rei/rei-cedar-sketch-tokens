@@ -19,13 +19,13 @@
     {
       "name": "Overwrite All",
       "identifier": "overwrite-all",
-      "script": "script.cocoascript",
+      "script": "script.js",
       "handler": "overwriteAll"
     },
     {
       "name": "Delete all Styles & Assets",
       "identifier": "delete-all",
-      "script": "script.cocoascript",
+      "script": "script.js",
       "handler": "deleteAll"
     }
   ]
