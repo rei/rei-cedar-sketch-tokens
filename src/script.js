@@ -2,13 +2,14 @@ import sketch from 'sketch'
 
 const document = sketch.getSelectedDocument()
 
-// import * as sketchNewTextTokens from './Resources/sketch-new-text-tokens.json'
+// import * as sketchVNextTokens from './Resources/sketch-v-next-tokens.json'
 import * as sketchTokens from './Resources/sketch-tokens.json'
-console.log(sketchTokens);
 const colorTokens = sketchTokens.default.colors
 const textTokens = sketchTokens.default.text
 const prominenceTokens = sketchTokens.default.prominence
 const spacingTokens = sketchTokens.default.spacing
+// console.log(sketchTokens.default);
+
 
 // https://developer.sketch.com/reference/api/
 
