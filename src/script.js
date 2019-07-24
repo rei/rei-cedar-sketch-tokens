@@ -208,11 +208,21 @@ function setStyles(currentStyles, newStyles, isText = false) {
       const currentStyle = isText
         ? document.getSharedTextStyleWithID(newStyleId)
         : document.getSharedLayerStyleWithID(newStyleId)
+
+      // for (const styleProp in newStyle.style) {
+      //   if (newStyle.style.hasOwnProperty(styleProp)) {
+      //     currentStyle.style[styleProp] = newStyle.style[styleProp];
+      //   }
+      // }
+
       // set current style by merging with newStyle
       currentStyle.style = {
         ...currentStyle.style,
         ...newStyle.style
       }
+
+      syncAllStyleInstances(currentStyle)
+
     }
 
   })
@@ -224,3 +234,11 @@ const cssNameToSketch = (string, trim = 0) => {
   return string.substring(trim).split('-').map(substring => stringCapitalizeFistLetter(substring)).join('/')
 }
 const stringCapitalizeFistLetter = string => string.charAt(0).toUpperCase() + string.slice(1)
+function syncAllStyleInstances(sharedStyle) {
+  const styleInstances = sharedStyle.getAllInstances()
+  styleInstances.forEach(styleInstance => {
+    styleInstance.syncWithSharedStyle(sharedStyle)
+  })
+  if (styleInstances.length > 0)
+    console.log(styleInstances)
+}
