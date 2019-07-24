@@ -12,7 +12,8 @@
     "title": "Cedar Token Generator",
     "items": [
       "overwrite-all",
-      "delete-all"
+      "delete-all",
+      "delete-and-overwrite-all"
     ]
   },
   "commands": [
@@ -27,6 +28,12 @@
       "identifier": "delete-all",
       "script": "script.js",
       "handler": "deleteAll"
+    },
+    {
+      "name": "Delete and Overwrite All",
+      "identifier": "delete-and-overwrite-all",
+      "script": "script.js",
+      "handler": "deleteAndOverwriteAll"
     }
   ]
 }

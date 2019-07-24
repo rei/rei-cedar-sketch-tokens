@@ -25,6 +25,11 @@ export function deleteAll(context) {
   document.sharedLayerStyles = []
 }
 
+export function deleteAndOverwriteAll(context) {
+  deleteAll(context)
+  overwriteAll(context)
+}
+
 function overwriteColors(context) {
   document.colors = generateColors();
 }
