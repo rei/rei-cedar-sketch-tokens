@@ -259,8 +259,6 @@ function setStyles(currentStyles, newStyles, isText = false) {
 
 
 
-
-
 export function createSymbol(context) {
 
   // TODO: create this if it doesn't exist
@@ -270,43 +268,14 @@ export function createSymbol(context) {
     symbolsPage.parent = document
   }
 
-  const point = symbolsPage.sketchObject.originForNewArtboardWithSize(CGSizeMake(100, 100))
+  const point = originForNewArtboardWithSize(symbolsPage, 100, 100)
 
-  const artboard = new SymbolMaster({
+  const symbolMaster = new SymbolMaster({
     name: 'Sizes / Spacing / 400 / 4x / Four X',
     parent: symbolsPage,
     frame: new Rectangle(point.x, point.y, 100, 100)
   })
 
-  // var master = SymbolMaster.fromArtboard(artboard)
-
-  // master.parent = symbolsPage
-
-  // var imageSize = CGSizeMake(100, 100)
-  // console.log(NSLog())
-
-  // var rects = []
-  // symbolsPage.layers.forEach(layer => {
-  //   rects.push(layer.sketchObject.frame())
-  // })
-  // console.log(symbolsPage.sketchObject);
-
-
-  // console.log(MSRect.rectWithUnionOfRects(rects).size())
-
-
-  console.log(point.x);
-
-  // const desc = point.debugDescription()
-  // console.log(desc);
-
-
-
-}
-
-function randomPointAtCircle(centerX = 10, centerY = 10, radius = 10) {
-  var angle = Math.random() * Math.PI * 2;
-  return CGPointMake(centerX + Math.cos(angle) * radius, centerY + Math.sin(angle) * radius);
 }
 
 
@@ -319,9 +288,7 @@ const tokenToArray = (tokenName, trim = 1) => {
     .map(substring => stringCapitalizeFistLetter(substring))
 }
 const createSketchPath = (tokenArray = [], tokenNames = []) => {
-  // console.log(tokenArray);
-
-  const tokenName = typeof tokenNames === 'array' ? tokenNames.join(SKETCH_PATH_DELIMITER) : tokenNames
+  const tokenName = typeof tokenNames == 'string' ? tokenNames : tokenNames.join(' + ')
 
   return tokenArray
     .concat([tokenName])
@@ -335,3 +302,40 @@ function syncAllStyleInstances(sharedStyle) {
     styleInstance.syncWithSharedStyle(sharedStyle)
   })
 }
+
+function originForNewArtboardWithSize(page, width, height) {
+  // https://sketchplugins.com/d/1301-place-new-layer-artboard-next-to-the-elements-in-the-canvas
+  const point = page.sketchObject.originForNewArtboardWithSize(CGSizeMake(width, height))
+  return {
+    x: point.x,
+    y: point.y
+  }
+}
+
+function MSRectOfAllPageLayers(page) {
+  var rects = []
+  page.layers.forEach(layer => {
+    rects.push(layer.sketchObject.frame())
+  })
+  return MSRect.rectWithUnionOfRects(rects)
+}
+
+// function originForNewArtboardToRight(page, buffer = 32) {
+//   const msRect = MSRectOfAllPageLayers(page)
+//   const x = msRect.maxX() + buffer
+//   const y = msRect.minY()
+//   return {
+//     x: x,
+//     y: y
+//   }
+// }
+
+// function originForNewArtboardToBottom(page, buffer = 32) {
+//   const msRect = MSRectOfAllPageLayers(page)
+//   const y = msRect.maxY() + buffer
+//   const x = msRect.minX()
+//   return {
+//     x: x,
+//     y: y
+//   }
+// }
