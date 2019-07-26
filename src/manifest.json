@@ -13,7 +13,8 @@
     "items": [
       "overwrite-all",
       "delete-all",
-      "delete-and-overwrite-all"
+      "delete-and-overwrite-all",
+      "symbol-test"
     ]
   },
   "commands": [

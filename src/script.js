@@ -1,6 +1,6 @@
 import sketch from 'sketch'
 
-const { Page, Text, Style, SymbolMaster, Artboard, Rectangle } = sketch
+const { Page, Text, Style, SymbolMaster, Artboard, Rectangle, ShapePath, SharedStyle } = sketch
 
 const document = sketch.getSelectedDocument()
 
@@ -20,6 +20,7 @@ const radiusTokens = sketchTokens.default.radius
 const SIZES_GROUP_TITLE = 'Sizes'
 const SKETCH_PATH_DELIMITER = ' / '
 const TOKEN_DELIMITER = '-'
+const TOKEN_COMBINATOR = ' + '
 
 
 // https://developer.sketch.com/reference/api/
@@ -83,9 +84,8 @@ function generateTextStyles(context) {
         const textColorPath = tokenToArray(textColorToken.name, 3)
         const textTokenPath = tokenToArray(textToken.name, 2)
         const textStylePath = [textAlign.name].concat(textTokenPath, textColorPath)
-        // const textStylePath = `${textAlign.name}-${textToken.name.substring(9)}-${textColorPath}`
         textStyles.push({
-          name: createSketchPath(textStylePath, [textToken.name, textColorToken.name]),
+          name: createSketchPath(textStylePath, [textColorToken.name, textToken.name]),
           style: {
             lineHeight: textToken.value.lineHeight,
             fontSize: textToken.value.fontSize,
@@ -157,10 +157,6 @@ function generateLayerStyles() {
   })
 
   const insetStyles = spacingTokens.inset.map(insetToken => {
-    // console.log(tokenToArray(insetToken.name, 2).unshift(SIZES_GROUP_TITLE));
-
-
-
     return {
       name: createSketchPath(
         [SIZES_GROUP_TITLE].concat(tokenToArray(insetToken.name, 2)),
@@ -257,9 +253,21 @@ function setStyles(currentStyles, newStyles, isText = false) {
 
 }
 
+function getSharedStyleTokenName(sharedStyle) {
+  return /[^\s]+$/ig.exec(sharedStyle.name)
+  // return sharedStyle.name.match(/[^\s]+$/ig)[0]
+}
 
+function createMapOfTokensToSharedStyles() {
+  let mapOfTokensToSharedStyles = {}
+  document.sharedLayerStyles.forEach(sharedLayerStyle => {
+    const tokenName = getSharedStyleTokenName(sharedLayerStyle)
+    mapOfTokensToSharedStyles[tokenName] = sharedLayerStyle.id
+  })
+  return mapOfTokensToSharedStyles
+}
 
-export function createSymbol(context) {
+export function createSymbol(context, content) {
 
   // TODO: create this if it doesn't exist
   let symbolsPage = Page.getSymbolsPage(document)
@@ -276,9 +284,19 @@ export function createSymbol(context) {
     frame: new Rectangle(point.x, point.y, 100, 100)
   })
 
+  const tokenIdMap = createMapOfTokensToSharedStyles()
+
+  const shapePath = new ShapePath({
+    name: 'cdr-name',
+    shapeType: ShapePath.ShapeType.Rectangle,
+    parent: symbolMaster,
+    frame: new Rectangle(0, 0, 100, 100),
+    sharedStyleId: tokenIdMap['cdr-space-eighth-x'],
+  })
+
+  syncAllStyleInstances(document.getSharedLayerStyleWithID(tokenIdMap['cdr-space-eighth-x']))
+
 }
-
-
 
 // UTIL FUNCTIONS //
 const tokenToArray = (tokenName, trim = 1) => {
@@ -288,7 +306,7 @@ const tokenToArray = (tokenName, trim = 1) => {
     .map(substring => stringCapitalizeFistLetter(substring))
 }
 const createSketchPath = (tokenArray = [], tokenNames = []) => {
-  const tokenName = typeof tokenNames == 'string' ? tokenNames : tokenNames.join(' + ')
+  const tokenName = typeof tokenNames == 'string' ? tokenNames : tokenNames.join(TOKEN_COMBINATOR)
 
   return tokenArray
     .concat([tokenName])
@@ -313,6 +331,7 @@ function originForNewArtboardWithSize(page, width, height) {
 }
 
 function MSRectOfAllPageLayers(page) {
+  // https://sketchplugins.com/d/1301-place-new-layer-artboard-next-to-the-elements-in-the-canvas
   var rects = []
   page.layers.forEach(layer => {
     rects.push(layer.sketchObject.frame())

@@ -461,18 +461,6 @@
             {
                 "name": "cdr-space-four-x",
                 "value": 64
-            },
-            {
-                "name": "cdr-space-inset-three-quarter-x-stretch-left-right",
-                "value": 12
-            },
-            {
-                "name": "cdr-space-inset-one-and-a-half-x-squish-left-right",
-                "value": 24
-            },
-            {
-                "name": "cdr-space-inset-one-and-a-half-x-stretch-left-right",
-                "value": 24
             }
         ]
     },
