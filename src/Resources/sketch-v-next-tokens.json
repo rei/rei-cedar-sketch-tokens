@@ -1,6 +1,16 @@
 {
     "text": [
         {
+            "name": "cdr-text-heading-1100",
+            "value": {
+                "fontFamily": "REI Stuart App",
+                "fontWeight": 10,
+                "fontSize": 56,
+                "lineHeight": 64,
+                "letterSpacing": -0.0125
+            }
+        },
+        {
             "name": "cdr-text-heading-800",
             "value": {
                 "fontFamily": "REI Stuart App",

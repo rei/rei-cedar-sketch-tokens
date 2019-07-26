@@ -13,7 +13,8 @@
     "items": [
       "overwrite-all",
       "delete-all",
-      "delete-and-overwrite-all"
+      "delete-and-overwrite-all",
+      "symbol-test"
     ]
   },
   "commands": [
@@ -34,6 +35,12 @@
       "identifier": "delete-and-overwrite-all",
       "script": "script.js",
       "handler": "deleteAndOverwriteAll"
+    },
+    {
+      "name": "Symbol Test",
+      "identifier": "symbol-test",
+      "script": "script.js",
+      "handler": "createSymbol"
     }
   ]
 }

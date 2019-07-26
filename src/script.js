@@ -1,14 +1,25 @@
 import sketch from 'sketch'
 
+const { Page, Text, Style, SymbolMaster, Artboard, Rectangle } = sketch
+
 const document = sketch.getSelectedDocument()
 
-// import * as sketchVNextTokens from './Resources/sketch-v-next-tokens.json'
+// TODO: change to npm import
 import * as sketchTokens from './Resources/sketch-tokens.json'
 const colorTokens = sketchTokens.default.colors
 const textTokens = sketchTokens.default.text
 const prominenceTokens = sketchTokens.default.prominence
 const spacingTokens = sketchTokens.default.spacing
+const radiusTokens = sketchTokens.default.radius
 // console.log(sketchTokens.default);
+
+// import * as vNextSketchTokens from './Resources/sketch-v-next-tokens.json'
+// const vNextTextTokens = vNextSketchTokens.default.text
+// const vNextProminenceTokens = vNextSketchTokens.default.prominence
+
+const SIZES_GROUP_TITLE = 'Sizes'
+const SKETCH_PATH_DELIMITER = ' / '
+const TOKEN_DELIMITER = '-'
 
 
 // https://developer.sketch.com/reference/api/
@@ -43,7 +54,8 @@ function overwriteLayerStyles(context) {
 
 function generateColors() {
   return colorTokens.map(color => ({
-    name: cssNameToSketch(color.name, 10),
+    // name: cssNameToSketch(color.name, 2),
+    name: color.name,
     color: color.value
   }))
 }
@@ -53,32 +65,34 @@ function generateTextStyles(context) {
   const textColorTokens = colorTokens.filter(color => color.type === 'text')
   const textAlignment = [
     {
-      name: 'left',
-      value: sketch.Text.Alignment.left
+      name: 'Left',
+      value: Text.Alignment.left
     },
     {
-      name: 'center',
-      value: sketch.Text.Alignment.center
+      name: 'Center',
+      value: Text.Alignment.center
     },
     {
-      name: 'right',
-      value: sketch.Text.Alignment.right
+      name: 'Right',
+      value: Text.Alignment.right
     },
   ]
   textTokens.forEach(textToken => {
-    textColorTokens.forEach(textColor => {
-      const textColorName = textColor.name.substring(15)
+    textColorTokens.forEach(textColorToken => {
       textAlignment.forEach(textAlign => {
-        const styleName = `${textToken.name.substring(9)}-${textColorName}-${textAlign.name}`
+        const textColorPath = tokenToArray(textColorToken.name, 3)
+        const textTokenPath = tokenToArray(textToken.name, 2)
+        const textStylePath = [textAlign.name].concat(textTokenPath, textColorPath)
+        // const textStylePath = `${textAlign.name}-${textToken.name.substring(9)}-${textColorPath}`
         textStyles.push({
-          name: cssNameToSketch(styleName),
+          name: createSketchPath(textStylePath, [textToken.name, textColorToken.name]),
           style: {
             lineHeight: textToken.value.lineHeight,
             fontSize: textToken.value.fontSize,
             fontFamily: textToken.value.fontFamily,
             fontWeight: textToken.value.fontWeight,
             textTransform: textToken.value.textTransform,
-            textColor: textColor.value,
+            textColor: textColorToken.value,
             alignment: textAlign.value,
             borders: []
           }
@@ -96,37 +110,28 @@ function generateLayerStyles() {
   const lineStyles = []
 
   colorTokens
-    .filter(colorToken => colorToken.type !== 'text') // keeping text styles for flexibility
+    // .filter(colorToken => colorToken.type !== 'text') // keeping text styles for flexibility
     .forEach(colorToken => {
 
-      if (colorToken.type === 'border') {
+      const colorPath = createSketchPath(
+        tokenToArray(colorToken.name, 2),
+        colorToken.name
+      )
 
-        // Borders with inset lines
+      if (colorToken.type === 'border') {
         borderStyles.push({
-          name: cssNameToSketch(colorToken.name, 10),
+          name: colorPath,
           style: {
             borders: [{
               color: colorToken.value,
-              position: sketch.Style.BorderPosition.Inside
+              position: Style.BorderPosition.Inside
             }],
           }
         })
 
-        // // Lines have centered line positions
-        // lineStyles.push({
-        //   name: cssNameToSketch(colorToken.name.replace('border', 'line'), 10),
-        //   style: {
-        //     borders: [{
-        //       color: colorToken.value,
-        //       position: sketch.Style.BorderPosition.Center
-        //     }],
-        //   }
-        // })
-
       } else {
-
         fillStyles.push({
-          name: cssNameToSketch(colorToken.name, 10),
+          name: colorPath,
           style: {
             fills: [{
               color: colorToken.value,
@@ -140,7 +145,10 @@ function generateLayerStyles() {
 
   let prominenceStyles = prominenceTokens.map(prominenceToken => {
     return {
-      name: cssNameToSketch(prominenceToken.name, 4),
+      name: createSketchPath(
+        tokenToArray(prominenceToken.name),
+        prominenceToken.name
+      ),
       style: {
         shadows: prominenceToken.value,
         borders: []
@@ -149,12 +157,18 @@ function generateLayerStyles() {
   })
 
   const insetStyles = spacingTokens.inset.map(insetToken => {
+    // console.log(tokenToArray(insetToken.name, 2).unshift(SIZES_GROUP_TITLE));
+
+
+
     return {
-      name: cssNameToSketch(insetToken.name, 4),
+      name: createSketchPath(
+        [SIZES_GROUP_TITLE].concat(tokenToArray(insetToken.name, 2)),
+        insetToken.name
+      ),
       style: {
         fills: [{
-          // color: insetToken.value,
-          color: "#FFFF022"
+          color: "#0FFFF022"
         }],
         borders: []
       }
@@ -163,12 +177,27 @@ function generateLayerStyles() {
 
   const spaceStyles = spacingTokens.space.map(spaceToken => {
     return {
-      name: cssNameToSketch(spaceToken.name, 4),
+      name: createSketchPath(
+        [SIZES_GROUP_TITLE].concat(tokenToArray(spaceToken.name)),
+        spaceToken.name
+      ),
       style: {
         fills: [{
-          // color: insetToken.value,
-          color: "#FF009022"
+          color: "#FF770022"
         }],
+        borders: []
+      }
+    }
+  })
+
+  const radiusStyles = radiusTokens.map(radiusToken => {
+    return {
+      name: createSketchPath(
+        [SIZES_GROUP_TITLE].concat(tokenToArray(radiusToken.name)),
+        radiusToken.name
+      ),
+      style: {
+        fills: [],
         borders: []
       }
     }
@@ -185,11 +214,11 @@ function generateLayerStyles() {
   const layerStyles = [].concat(
     fillStyles,
     borderStyles,
-    // lineStyles, // replace 'border' with 'line' tokens will be confuse?
     prominenceStyles,
     noneStyle,
     insetStyles,
-    spaceStyles
+    spaceStyles,
+    radiusStyles
   )
 
   return layerStyles
@@ -228,10 +257,77 @@ function setStyles(currentStyles, newStyles, isText = false) {
 
 }
 
-// UTIL FUNCTIONS // 
-const cssNameToSketch = (string, trim = 0) => {
-  return string.substring(trim).split('-').map(substring => stringCapitalizeFistLetter(substring)).join('/')
+
+
+
+
+export function createSymbol(context) {
+
+  // TODO: create this if it doesn't exist
+  let symbolsPage = Page.getSymbolsPage(document)
+  if (symbolsPage == null) {
+    symbolsPage = Page.createSymbolsPage()
+    symbolsPage.parent = document
+  }
+
+  const point = symbolsPage.sketchObject.originForNewArtboardWithSize(CGSizeMake(100, 100))
+
+  const artboard = new SymbolMaster({
+    name: 'Sizes / Spacing / 400 / 4x / Four X',
+    parent: symbolsPage,
+    frame: new Rectangle(point.x, point.y, 100, 100)
+  })
+
+  // var master = SymbolMaster.fromArtboard(artboard)
+
+  // master.parent = symbolsPage
+
+  // var imageSize = CGSizeMake(100, 100)
+  // console.log(NSLog())
+
+  // var rects = []
+  // symbolsPage.layers.forEach(layer => {
+  //   rects.push(layer.sketchObject.frame())
+  // })
+  // console.log(symbolsPage.sketchObject);
+
+
+  // console.log(MSRect.rectWithUnionOfRects(rects).size())
+
+
+  console.log(point.x);
+
+  // const desc = point.debugDescription()
+  // console.log(desc);
+
+
+
 }
+
+function randomPointAtCircle(centerX = 10, centerY = 10, radius = 10) {
+  var angle = Math.random() * Math.PI * 2;
+  return CGPointMake(centerX + Math.cos(angle) * radius, centerY + Math.sin(angle) * radius);
+}
+
+
+
+// UTIL FUNCTIONS //
+const tokenToArray = (tokenName, trim = 1) => {
+  return tokenName
+    .split(TOKEN_DELIMITER)
+    .slice(trim)
+    .map(substring => stringCapitalizeFistLetter(substring))
+}
+const createSketchPath = (tokenArray = [], tokenNames = []) => {
+  // console.log(tokenArray);
+
+  const tokenName = typeof tokenNames === 'array' ? tokenNames.join(SKETCH_PATH_DELIMITER) : tokenNames
+
+  return tokenArray
+    .concat([tokenName])
+    .join(SKETCH_PATH_DELIMITER)
+}
+
 const stringCapitalizeFistLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1)
 
 function syncAllStyleInstances(sharedStyle) {
