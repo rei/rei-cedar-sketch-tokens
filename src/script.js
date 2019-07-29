@@ -21,6 +21,7 @@ const SIZES_GROUP_TITLE = 'Sizes'
 const SKETCH_PATH_DELIMITER = ' / '
 const TOKEN_DELIMITER = '-'
 const TOKEN_COMBINATOR = ' + '
+const DONT_USE_WARNING = '! DONT USE THESE LAYER STYLES !'
 
 
 // https://developer.sketch.com/reference/api/
@@ -156,19 +157,27 @@ function generateLayerStyles() {
     }
   })
 
-  const insetStyles = spacingTokens.inset.map(insetToken => {
-    return {
-      name: createSketchPath(
-        [SIZES_GROUP_TITLE].concat(tokenToArray(insetToken.name, 2)),
-        insetToken.name
-      ),
-      style: {
-        fills: [{
-          color: "#0FFFF022"
-        }],
-        borders: []
-      }
-    }
+  const insetStyles = []
+  spacingTokens.inset.forEach(insetToken => {
+    const insetColor = "#0FFFF022"
+    // TODO: these should come from the token repo
+    const leftRightTokenSuffix = '-left-right'
+    const topBottomSuffix = '-top-bottom'
+    const insetTokenNames = insetToken.value.length > 1
+      ? [insetToken.name, insetToken.name + leftRightTokenSuffix, insetToken.name + topBottomSuffix]
+      : [insetToken.name]
+    insetTokenNames.forEach(insetTokenName => {
+      insetStyles.push({
+        name: createSketchPath(
+          [SIZES_GROUP_TITLE].concat(tokenToArray(insetTokenName, 2)),
+          insetTokenName
+        ),
+        style: {
+          fills: [{ color: insetColor }],
+          borders: []
+        }
+      })
+    })
   })
 
   const spaceStyles = spacingTokens.space.map(spaceToken => {
@@ -207,6 +216,14 @@ function generateLayerStyles() {
     }
   }]
 
+  const dontUseStyles = [{
+    name: [SIZES_GROUP_TITLE, DONT_USE_WARNING].join(SKETCH_PATH_DELIMITER),
+    style: {
+      fills: [],
+      borders: []
+    }
+  }]
+
   const layerStyles = [].concat(
     fillStyles,
     borderStyles,
@@ -214,7 +231,8 @@ function generateLayerStyles() {
     noneStyle,
     insetStyles,
     spaceStyles,
-    radiusStyles
+    radiusStyles,
+    dontUseStyles
   )
 
   return layerStyles
