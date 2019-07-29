@@ -6,6 +6,7 @@ const document = sketch.getSelectedDocument()
 
 // TODO: change to npm import
 import * as sketchTokens from './Resources/sketch-tokens.json'
+import FontWeightTableLookup from './fontWeightTable.js';
 const colorTokens = sketchTokens.default.colors
 const textTokens = sketchTokens.default.text
 const prominenceTokens = sketchTokens.default.prominence
@@ -91,7 +92,7 @@ function generateTextStyles(context) {
             lineHeight: textToken.value.lineHeight,
             fontSize: textToken.value.fontSize,
             fontFamily: textToken.value.fontFamily,
-            fontWeight: textToken.value.fontWeight,
+            fontWeight: FontWeightTableLookup(textToken.value.fontFamily, textToken.value.fontWeightOriginal),
             textTransform: textToken.value.textTransform,
             textColor: textColorToken.value,
             alignment: textAlign.value,
