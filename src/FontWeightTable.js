@@ -1,4 +1,3 @@
-
 const DefatulSketchFontWeight = 6 // middle value
 
 function convertCssFontWeightToSketch(cssWeight) {
@@ -38,36 +37,34 @@ function convertCssFontWeightToSketch(cssWeight) {
     }
 }
 
-const FontWeightTable = {
-
-    'Sentinel': {
-        '400': 6,
-    },
-    'Roboto': {
-        '400': 6,
-    },
-    'REI Stuart App': {
-        '400': 6,
-    },
-    'Graphik App': {
-        '400': 6,
-    },
-
-}
 export default function FontWeightTableLookup(family, cssWeight) {
 
     return convertCssFontWeightToSketch(cssWeight) // for now?
 
-    cssWeight = cssWeight + '' // convert to string
+    // cssWeight = cssWeight + '' // convert to string
 
-    const fontFamily = FontWeightTable[family]
-    if (fontFamily == null)
-        return DefatulSketchFontWeight
+    // const fontFamily = FontWeightTable[family]
+    // if (fontFamily == null)
+    //     return DefatulSketchFontWeight
 
-    const fontWeight = fontFamily[cssWeight]
-    if (fontWeight == null)
-        return DefatulSketchFontWeight
+    // const fontWeight = fontFamily[cssWeight]
+    // if (fontWeight == null)
+    //     return DefatulSketchFontWeight
 
-    return fontWeight
+    // return fontWeight
 
 }
+// const FontWeightTable = {
+//     'Sentinel': {
+//         '400': 6,
+//     },
+//     'Roboto': {
+//         '400': 6,
+//     },
+//     'REI Stuart App': {
+//         '400': 6,
+//     },
+//     'Graphik App': {
+//         '400': 6,
+//     },
+// }

@@ -1,12 +1,27 @@
 import sketch from 'sketch'
-
-const { Page, Text, Style, SymbolMaster, Artboard, Rectangle, ShapePath, SharedStyle } = sketch
-
+import { Page, SymbolMaster, Rectangle, ShapePath } from 'sketch'
 const document = sketch.getSelectedDocument()
+// https://developer.sketch.com/reference/api/
 
 // TODO: change to npm import
 import * as sketchTokens from './Resources/sketch-tokens.json'
-import FontWeightTableLookup from './fontWeightTable.js';
+import generateColors from './generateColors.js';
+import generateTextStyles from './generateTextStyles.js';
+import generateLayerStyles from './generateLayerStyles.js';
+import { syncAllStyleInstances, originForNewArtboardWithSize } from './utils.js';
+
+/**
+ * TODO:
+ * split content out into partial files
+ * add options for updating multiple versions
+ * import token repo
+ * add layer export for grid style
+ * add px value prefix to sizes
+ * add better token update matching - name independent
+ */
+
+
+
 const colorTokens = sketchTokens.default.colors
 const textTokens = sketchTokens.default.text
 const prominenceTokens = sketchTokens.default.prominence
@@ -17,21 +32,6 @@ const radiusTokens = sketchTokens.default.radius
 // import * as vNextSketchTokens from './Resources/sketch-v-next-tokens.json'
 // const vNextTextTokens = vNextSketchTokens.default.text
 // const vNextProminenceTokens = vNextSketchTokens.default.prominence
-
-const SIZES_GROUP_TITLE = 'Sizes'
-const SKETCH_PATH_DELIMITER = ' / '
-const TOKEN_DELIMITER = '-'
-const TOKEN_COMBINATOR = ' + '
-const DONT_USE_WARNING = '! DONT USE THESE LAYER STYLES !'
-
-const REDLINE_COLORS = {
-  space: "#FF7700", // orange
-  grid: "#00DDFF", // turquoise
-  inset: "#00FF00" // green 
-}
-
-
-// https://developer.sketch.com/reference/api/
 
 export function overwriteAll(context) {
   overwriteColors()
@@ -51,206 +51,13 @@ export function deleteAndOverwriteAll(context) {
 }
 
 function overwriteColors(context) {
-  document.colors = generateColors();
+  document.colors = generateColors(colorTokens);
 }
 function overwriteTextStyles(context) {
-  setStyles(document.sharedTextStyles, generateTextStyles(), true)
+  setStyles(document.sharedTextStyles, generateTextStyles(textTokens, colorTokens), true)
 }
 function overwriteLayerStyles(context) {
-  setStyles(document.sharedLayerStyles, generateLayerStyles())
-}
-
-
-function generateColors() {
-  return colorTokens.map(color => ({
-    // name: cssNameToSketch(color.name, 2),
-    name: color.name,
-    color: color.value
-  }))
-}
-
-function generateTextStyles(context) {
-  const textStyles = []
-  const textColorTokens = colorTokens.filter(color => color.type === 'text')
-  const textAlignment = [
-    {
-      name: 'Left',
-      value: Text.Alignment.left
-    },
-    {
-      name: 'Center',
-      value: Text.Alignment.center
-    },
-    {
-      name: 'Right',
-      value: Text.Alignment.right
-    },
-  ]
-  textTokens.forEach(textToken => {
-    textColorTokens.forEach(textColorToken => {
-      textAlignment.forEach(textAlign => {
-        const textColorPath = tokenToArray(textColorToken.name, 3)
-        const textTokenPath = tokenToArray(textToken.name, 2)
-        const textStylePath = [textAlign.name].concat(textTokenPath, textColorPath)
-        textStyles.push({
-          name: createSketchPath(textStylePath, [textColorToken.name, textToken.name]),
-          style: {
-            lineHeight: textToken.value.lineHeight,
-            fontSize: textToken.value.fontSize,
-            fontFamily: textToken.value.fontFamily,
-            fontWeight: FontWeightTableLookup(textToken.value.fontFamily, textToken.value.fontWeightOriginal),
-            textTransform: textToken.value.textTransform,
-            textColor: textColorToken.value,
-            alignment: textAlign.value,
-            borders: []
-          }
-        })
-      })
-    })
-  })
-  return textStyles
-}
-
-function generateLayerStyles() {
-
-  const fillStyles = []
-  const borderStyles = []
-  const lineStyles = []
-
-  colorTokens
-    // .filter(colorToken => colorToken.type !== 'text') // keeping text styles for flexibility
-    .forEach(colorToken => {
-
-      const colorPath = createSketchPath(
-        tokenToArray(colorToken.name, 2),
-        colorToken.name
-      )
-
-      if (colorToken.type === 'border') {
-        borderStyles.push({
-          name: colorPath,
-          style: {
-            borders: [{
-              color: colorToken.value,
-              position: Style.BorderPosition.Inside
-            }],
-          }
-        })
-
-      } else {
-        fillStyles.push({
-          name: colorPath,
-          style: {
-            fills: [{
-              color: colorToken.value,
-            }],
-            borders: []
-          }
-        })
-
-      }
-    })
-
-  let prominenceStyles = prominenceTokens.map(prominenceToken => {
-    return {
-      name: createSketchPath(
-        tokenToArray(prominenceToken.name),
-        prominenceToken.name
-      ),
-      style: {
-        shadows: prominenceToken.value,
-        borders: []
-      }
-    }
-  })
-
-  const insetStyles = []
-  spacingTokens.inset.forEach(insetToken => {
-    // TODO: these should come from the token repo
-    const leftRightTokenSuffix = '-left-right'
-    const topBottomSuffix = '-top-bottom'
-    const insetTokenNames = insetToken.value.length > 1
-      ? [insetToken.name, insetToken.name + leftRightTokenSuffix, insetToken.name + topBottomSuffix]
-      : [insetToken.name]
-    insetTokenNames.forEach(insetTokenName => {
-      insetStyles.push({
-        name: createSketchPath(
-          [SIZES_GROUP_TITLE].concat(tokenToArray(insetTokenName, 2)),
-          insetTokenName
-        ),
-        style: {
-          fills: [{
-            color: REDLINE_COLORS.inset + "11"
-          }],
-          borders: [{
-            color: REDLINE_COLORS.inset + "22",
-            position: Style.BorderPosition.Inside
-          }]
-        }
-      })
-    })
-  })
-
-  const spaceStyles = spacingTokens.space.map(spaceToken => {
-    const spaceColor = "#FF7700"
-    return {
-      name: createSketchPath(
-        [SIZES_GROUP_TITLE].concat(tokenToArray(spaceToken.name)),
-        spaceToken.name
-      ),
-      style: {
-        fills: [{
-          color: REDLINE_COLORS.space + "11"
-        }],
-        borders: [{
-          color: REDLINE_COLORS.space + "22",
-          position: Style.BorderPosition.Inside
-        }]
-      }
-    }
-  })
-
-  const radiusStyles = radiusTokens.map(radiusToken => {
-    return {
-      name: createSketchPath(
-        [SIZES_GROUP_TITLE].concat(tokenToArray(radiusToken.name)),
-        radiusToken.name
-      ),
-      style: {
-        fills: [],
-        borders: []
-      }
-    }
-  })
-
-  const noneStyle = [{
-    name: 'None',
-    style: {
-      fills: [],
-      borders: []
-    }
-  }]
-
-  const dontUseStyles = [{
-    name: [SIZES_GROUP_TITLE, DONT_USE_WARNING].join(SKETCH_PATH_DELIMITER),
-    style: {
-      fills: [],
-      borders: []
-    }
-  }]
-
-  const layerStyles = [].concat(
-    fillStyles,
-    borderStyles,
-    prominenceStyles,
-    noneStyle,
-    insetStyles,
-    spaceStyles,
-    radiusStyles,
-    dontUseStyles
-  )
-
-  return layerStyles
+  setStyles(document.sharedLayerStyles, generateLayerStyles(colorTokens, prominenceTokens, spacingTokens, radiusTokens))
 }
 
 function setStyles(currentStyles, newStyles, isText = false) {
@@ -330,64 +137,3 @@ export function createSymbol(context, content) {
   syncAllStyleInstances(document.getSharedLayerStyleWithID(tokenIdMap['cdr-space-eighth-x']))
 
 }
-
-// UTIL FUNCTIONS //
-const tokenToArray = (tokenName, trim = 1) => {
-  return tokenName
-    .split(TOKEN_DELIMITER)
-    .slice(trim)
-    .map(substring => stringCapitalizeFistLetter(substring))
-}
-const createSketchPath = (tokenArray = [], tokenNames = []) => {
-  const tokenName = typeof tokenNames == 'string' ? tokenNames : tokenNames.join(TOKEN_COMBINATOR)
-
-  return tokenArray
-    .concat([tokenName])
-    .join(SKETCH_PATH_DELIMITER)
-}
-
-const stringCapitalizeFistLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1)
-
-function syncAllStyleInstances(sharedStyle) {
-  sharedStyle.getAllInstances().forEach(styleInstance => {
-    styleInstance.syncWithSharedStyle(sharedStyle)
-  })
-}
-
-function originForNewArtboardWithSize(page, width, height) {
-  // https://sketchplugins.com/d/1301-place-new-layer-artboard-next-to-the-elements-in-the-canvas
-  const point = page.sketchObject.originForNewArtboardWithSize(CGSizeMake(width, height))
-  return {
-    x: point.x,
-    y: point.y
-  }
-}
-
-function MSRectOfAllPageLayers(page) {
-  // https://sketchplugins.com/d/1301-place-new-layer-artboard-next-to-the-elements-in-the-canvas
-  var rects = []
-  page.layers.forEach(layer => {
-    rects.push(layer.sketchObject.frame())
-  })
-  return MSRect.rectWithUnionOfRects(rects)
-}
-
-// function originForNewArtboardToRight(page, buffer = 32) {
-//   const msRect = MSRectOfAllPageLayers(page)
-//   const x = msRect.maxX() + buffer
-//   const y = msRect.minY()
-//   return {
-//     x: x,
-//     y: y
-//   }
-// }
-
-// function originForNewArtboardToBottom(page, buffer = 32) {
-//   const msRect = MSRectOfAllPageLayers(page)
-//   const y = msRect.maxY() + buffer
-//   const x = msRect.minX()
-//   return {
-//     x: x,
-//     y: y
-//   }
-// }
