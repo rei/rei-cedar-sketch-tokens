@@ -1,14 +1,7 @@
 import sketch from 'sketch'
-import { Page, SymbolMaster, Rectangle, ShapePath } from 'sketch'
-const document = sketch.getSelectedDocument()
-// https://developer.sketch.com/reference/api/
-
-// TODO: change to npm import
-import * as sketchTokens from './Resources/sketch-tokens.json'
 import generateColors from './generateColors.js';
 import generateTextStyles from './generateTextStyles.js';
 import generateLayerStyles from './generateLayerStyles.js';
-import { syncAllStyleInstances, originForNewArtboardWithSize } from './utils.js';
 import setStyles from './setStyles.js';
 
 /**
@@ -21,6 +14,7 @@ import setStyles from './setStyles.js';
  * import token repo
  */
 
+import * as sketchTokens from './Resources/sketch-tokens.json'
 const colorTokens = sketchTokens.default.colors
 const textTokens = sketchTokens.default.text
 const prominenceTokens = sketchTokens.default.prominence
@@ -28,9 +22,12 @@ const spacingTokens = sketchTokens.default.spacing
 const radiusTokens = sketchTokens.default.radius
 // console.log(sketchTokens.default);
 
-// import * as vNextSketchTokens from './Resources/sketch-v-next-tokens.json'
-// const vNextTextTokens = vNextSketchTokens.default.text
-// const vNextProminenceTokens = vNextSketchTokens.default.prominence
+import * as vNextSketchTokens from './Resources/sketch-v-next-tokens.json'
+const vNextTextTokens = vNextSketchTokens.default.text
+const vNextProminenceTokens = vNextSketchTokens.default.prominence
+// console.log(vNextSketchTokens.default);
+
+const document = sketch.getSelectedDocument()
 
 export function overwriteAll(context) {
   overwriteColors()
