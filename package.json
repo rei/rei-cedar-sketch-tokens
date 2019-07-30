@@ -33,6 +33,8 @@
   "devDependencies": {
     "@rei/cdr-tokens": "^1.1.1",
     "@skpm/builder": "^0.7.0",
-    "@skpm/fs": "^0.2.5"
+    "@skpm/fs": "^0.2.5",
+    "eslint": "^6.1.0",
+    "eslint-config-sketch": "^0.2.4"
   }
 }
