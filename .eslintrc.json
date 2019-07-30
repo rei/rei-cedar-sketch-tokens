@@ -2,7 +2,9 @@
     "env": {
         "es6": true
     },
-    "extends": "eslint:recommended",
+    "extends": [
+        "sketch"
+    ],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
