@@ -42,6 +42,20 @@ export function MSRectOfAllPageLayers(page) {
     return MSRect.rectWithUnionOfRects(rects)
 }
 
+export function getSharedStyleTokenName(sharedStyle) {
+    return /[^\s]+$/ig.exec(sharedStyle.name)
+    // return sharedStyle.name.match(/[^\s]+$/ig)[0]
+}
+
+export function createMapOfTokensToSharedStyles(document) {
+    let mapOfTokensToSharedStyles = {}
+    document.sharedLayerStyles.forEach(sharedLayerStyle => {
+        const tokenName = getSharedStyleTokenName(sharedLayerStyle)
+        mapOfTokensToSharedStyles[tokenName] = sharedLayerStyle.id
+    })
+    return mapOfTokensToSharedStyles
+}
+
 // export function originForNewArtboardToRight(page, buffer = 32) {
 //     const msRect = MSRectOfAllPageLayers(page)
 //     const x = msRect.maxX() + buffer
