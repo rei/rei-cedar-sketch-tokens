@@ -13,11 +13,12 @@ import setStyles from './setStyles.js';
 
 /**
  * TODO:
+ * break up layerStyle exports into multiple files
+ * add better token update matching - name independent
+ * add px value prefix to sizes
+ * add layer export for grid style
  * add options for updating multiple versions
  * import token repo
- * add layer export for grid style
- * add px value prefix to sizes
- * add better token update matching - name independent
  */
 
 const colorTokens = sketchTokens.default.colors
