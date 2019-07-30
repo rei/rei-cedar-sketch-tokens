@@ -24,6 +24,12 @@ const TOKEN_DELIMITER = '-'
 const TOKEN_COMBINATOR = ' + '
 const DONT_USE_WARNING = '! DONT USE THESE LAYER STYLES !'
 
+const REDLINE_COLORS = {
+  space: "#FF7700", // orange
+  grid: "#00DDFF", // turquoise
+  inset: "#00FF00" // green 
+}
+
 
 // https://developer.sketch.com/reference/api/
 
@@ -160,7 +166,6 @@ function generateLayerStyles() {
 
   const insetStyles = []
   spacingTokens.inset.forEach(insetToken => {
-    const insetColor = "#0FFFF022"
     // TODO: these should come from the token repo
     const leftRightTokenSuffix = '-left-right'
     const topBottomSuffix = '-top-bottom'
@@ -174,14 +179,20 @@ function generateLayerStyles() {
           insetTokenName
         ),
         style: {
-          fills: [{ color: insetColor }],
-          borders: []
+          fills: [{
+            color: REDLINE_COLORS.inset + "11"
+          }],
+          borders: [{
+            color: REDLINE_COLORS.inset + "22",
+            position: Style.BorderPosition.Inside
+          }]
         }
       })
     })
   })
 
   const spaceStyles = spacingTokens.space.map(spaceToken => {
+    const spaceColor = "#FF7700"
     return {
       name: createSketchPath(
         [SIZES_GROUP_TITLE].concat(tokenToArray(spaceToken.name)),
@@ -189,9 +200,12 @@ function generateLayerStyles() {
       ),
       style: {
         fills: [{
-          color: "#FF770022"
+          color: REDLINE_COLORS.space + "11"
         }],
-        borders: []
+        borders: [{
+          color: REDLINE_COLORS.space + "22",
+          position: Style.BorderPosition.Inside
+        }]
       }
     }
   })
