@@ -3,46 +3,55 @@ import { Style } from 'sketch'
 import { SIZES_GROUP_TITLE, REDLINE_COLORS, DONT_USE_WARNING, SKETCH_PATH_DELIMITER } from "./constants";
 
 export default function generateLayerStyles(colorTokens, prominenceTokens, spacingTokens, radiusTokens) {
+    return [].concat(
+        generateBorderAndFillStyles(colorTokens),
+        generateProminenceStyles(prominenceTokens),
+        generateSpacingStyles(spacingTokens.space),
+        generateInsetStyles(spacingTokens.inset),
+        generateGridStyles(),
+        generateRadiusStyles(radiusTokens),
+        generateExtraStyles(),
+    )
+}
 
-    const fillStyles = []
-    const borderStyles = []
-    // const lineStyles = []
+function generateBorderAndFillStyles(colorTokens) {
 
+    const borderAndFillStyles = []
     colorTokens
         // .filter(colorToken => colorToken.type !== 'text') // keeping text styles for flexibility
         .forEach(colorToken => {
 
-            const colorPath = createSketchPath(
+            const name = createSketchPath(
                 tokenToArray(colorToken.name, 2),
                 colorToken.name
             )
 
-            if (colorToken.type === 'border') {
-                borderStyles.push({
-                    name: colorPath,
-                    style: {
-                        borders: [{
-                            color: colorToken.value,
-                            position: Style.BorderPosition.Inside
-                        }],
-                    }
-                })
+            const style = colorToken.type === 'border'
+                ? {
+                    fills: [],
+                    borders: [{
+                        color: colorToken.value,
+                        position: Style.BorderPosition.Inside
+                    }],
+                }
+                : {
+                    fills: [{
+                        color: colorToken.value,
+                    }],
+                    borders: []
+                }
 
-            } else {
-                fillStyles.push({
-                    name: colorPath,
-                    style: {
-                        fills: [{
-                            color: colorToken.value,
-                        }],
-                        borders: []
-                    }
-                })
+            borderAndFillStyles.push({
+                name: name,
+                style: style
+            })
 
-            }
         })
+    return borderAndFillStyles
+}
 
-    let prominenceStyles = prominenceTokens.map(prominenceToken => {
+function generateProminenceStyles(prominenceTokens) {
+    return prominenceTokens.map(prominenceToken => {
         return {
             name: createSketchPath(
                 tokenToArray(prominenceToken.name),
@@ -54,9 +63,11 @@ export default function generateLayerStyles(colorTokens, prominenceTokens, spaci
             }
         }
     })
+}
 
+function generateInsetStyles(insetTokens) {
     const insetStyles = []
-    spacingTokens.inset.forEach(insetToken => {
+    insetTokens.forEach(insetToken => {
         // TODO: these should come from the token repo
         const leftRightTokenSuffix = '-left-right'
         const topBottomSuffix = '-top-bottom'
@@ -81,8 +92,11 @@ export default function generateLayerStyles(colorTokens, prominenceTokens, spaci
             })
         })
     })
+    return insetStyles
+}
 
-    const spaceStyles = spacingTokens.space.map(spaceToken => {
+function generateSpacingStyles(spacingTokens) {
+    return spacingTokens.map(spaceToken => {
         return {
             name: createSketchPath(
                 [SIZES_GROUP_TITLE].concat(tokenToArray(spaceToken.name)),
@@ -99,46 +113,42 @@ export default function generateLayerStyles(colorTokens, prominenceTokens, spaci
             }
         }
     })
+}
 
-    const radiusStyles = radiusTokens.map(radiusToken => {
+function generateRadiusStyles(radiusTokens) {
+    return radiusTokens.map(radiusToken => {
         return {
             name: createSketchPath(
                 [SIZES_GROUP_TITLE].concat(tokenToArray(radiusToken.name)),
                 radiusToken.name
             ),
-            style: {
-                fills: [],
-                borders: []
-            }
+            style: nullStyle
         }
     })
+}
 
-    const noneStyle = [{
-        name: 'None',
-        style: {
-            fills: [],
-            borders: []
+function generateGridStyles() {
+    const gridPusedoTokens = [
+        // TODO: make pusedo grid tokens
+    ]
+    // map to nullStyles
+    return gridPusedoTokens
+}
+
+function generateExtraStyles() {
+    return [
+        {
+            name: [SIZES_GROUP_TITLE, DONT_USE_WARNING].join(SKETCH_PATH_DELIMITER),
+            style: nullStyle
+        },
+        {
+            name: 'None',
+            style: nullStyle
         }
-    }]
+    ]
+}
 
-    const dontUseStyles = [{
-        name: [SIZES_GROUP_TITLE, DONT_USE_WARNING].join(SKETCH_PATH_DELIMITER),
-        style: {
-            fills: [],
-            borders: []
-        }
-    }]
-
-    const layerStyles = [].concat(
-        fillStyles,
-        borderStyles,
-        prominenceStyles,
-        noneStyle,
-        insetStyles,
-        spaceStyles,
-        radiusStyles,
-        dontUseStyles
-    )
-
-    return layerStyles
+const nullStyle = {
+    fills: [],
+    borders: []
 }
