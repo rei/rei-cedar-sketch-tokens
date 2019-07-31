@@ -128,11 +128,18 @@ function generateRadiusStyles(radiusTokens) {
 }
 
 function generateGridStyles() {
-    const gridPusedoTokens = [
-        // TODO: make pusedo grid tokens
-    ]
-    // map to nullStyles
-    return gridPusedoTokens
+    return [{
+        name: [SIZES_GROUP_TITLE, 'Grid'].join(SKETCH_PATH_DELIMITER),
+        style: {
+            fills: [{
+                color: REDLINE_COLORS.grid + "11"
+            }],
+            borders: [{
+                color: REDLINE_COLORS.grid + "22",
+                position: Style.BorderPosition.Inside
+            }]
+        }
+    }]
 }
 
 function generateExtraStyles() {
