@@ -1,16 +1,13 @@
-import { syncAllStyleInstances } from "./utils";
+import { syncAllStyleInstances, createMapOfTokensToSharedStyles, getSharedStyleTokenName } from "./utils";
 
 export default function setStyles(document, currentStyles, newStyles, isText = false) {
 
-    // map name to id
-    const currentStylesNameToIdMap = {}
-    currentStyles.forEach(currentStyle => {
-        currentStylesNameToIdMap[currentStyle.name] = currentStyle.id
-    })
+    const mapOfTokensToSharedStyles = createMapOfTokensToSharedStyles(document, isText)
 
     newStyles.forEach(newStyle => {
 
-        const newStyleId = currentStylesNameToIdMap[newStyle.name]
+        const tokenId = getSharedStyleTokenName(newStyle.name)
+        const newStyleId = mapOfTokensToSharedStyles[tokenId]
 
         if (newStyleId == null) { // it doesn't exist, so add it
             currentStyles.push(newStyle)

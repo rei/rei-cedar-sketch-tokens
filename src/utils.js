@@ -42,16 +42,20 @@ export function MSRectOfAllPageLayers(page) {
     return MSRect.rectWithUnionOfRects(rects)
 }
 
-export function getSharedStyleTokenName(sharedStyle) {
-    return /[^\s]+$/ig.exec(sharedStyle.name)
-    // return sharedStyle.name.match(/[^\s]+$/ig)[0]
+export function getSharedStyleTokenName(sharedStyleName) {
+    const afterTheLastSlachRegEx = /[^/]+$/ig
+    const tokenNameResults = afterTheLastSlachRegEx.exec(sharedStyleName)
+    return tokenNameResults[0]
 }
 
-export function createMapOfTokensToSharedStyles(document) {
+export function createMapOfTokensToSharedStyles(document, isText = false) {
     let mapOfTokensToSharedStyles = {}
-    document.sharedLayerStyles.forEach(sharedLayerStyle => {
-        const tokenName = getSharedStyleTokenName(sharedLayerStyle)
-        mapOfTokensToSharedStyles[tokenName] = sharedLayerStyle.id
+    const styleSet = isText
+        ? document.sharedTextStyles
+        : document.sharedLayerStyles
+    styleSet.forEach(style => {
+        const tokenName = getSharedStyleTokenName(style.name)
+        mapOfTokensToSharedStyles[tokenName] = style.id
     })
     return mapOfTokensToSharedStyles
 }
