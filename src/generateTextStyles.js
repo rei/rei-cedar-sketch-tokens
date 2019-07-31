@@ -1,5 +1,5 @@
 import { Text } from 'sketch'
-import FontWeightTableLookup from './fontWeightTable';
+import fontWeightTableLookup from './fontWeightTable';
 import { tokenToArray, createSketchPath } from './utils';
 
 export default function generateTextStyles(textTokens, colorTokens) {
@@ -17,7 +17,7 @@ export default function generateTextStyles(textTokens, colorTokens) {
                         lineHeight: textToken.value.lineHeight,
                         fontSize: textToken.value.fontSize,
                         fontFamily: textToken.value.fontFamily,
-                        fontWeight: FontWeightTableLookup(textToken.value.fontFamily, textToken.value.fontWeightOriginal),
+                        fontWeight: fontWeightTableLookup(textToken.value.fontFamily, textToken.value.fontWeightOriginal),
                         textTransform: textToken.value.textTransform,
                         textColor: textColorToken.value,
                         alignment: textAlign.value,
