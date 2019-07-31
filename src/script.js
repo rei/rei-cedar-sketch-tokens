@@ -6,7 +6,6 @@ import setStyles from './setStyles.js';
 
 /**
  * TODO:
- * break up layerStyle exports into multiple files
  * add better token update matching - name independent
  * add px value prefix to sizes
  * add layer export for grid style

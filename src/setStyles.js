@@ -22,6 +22,7 @@ export default function setStyles(document, currentStyles, newStyles, isText = f
                 ...currentStyle.style,
                 ...newStyle.style
             }
+            currentStyle.name = newStyle.name
             syncAllStyleInstances(currentStyle)
 
         }

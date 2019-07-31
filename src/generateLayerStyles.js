@@ -97,9 +97,10 @@ function generateInsetStyles(insetTokens) {
 
 function generateSpacingStyles(spacingTokens) {
     return spacingTokens.map(spaceToken => {
+        const sizeString = spaceToken.value + 'px'
         return {
             name: createSketchPath(
-                [SIZES_GROUP_TITLE].concat(tokenToArray(spaceToken.name)),
+                [SIZES_GROUP_TITLE, 'Space', sizeString].concat(tokenToArray(spaceToken.name, 2)),
                 spaceToken.name
             ),
             style: {
