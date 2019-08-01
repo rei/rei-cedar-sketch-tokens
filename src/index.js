@@ -11,7 +11,7 @@ import setStyles from './Partials/setStyles.js';
  * import token repo
  */
 
-import * as sketchTokens from './Resources/sketch-tokens.json'
+import * as sketchTokens from '@rei/cdr-tokens-v1.2/dist/sketch/sketch.json'
 const colorTokens = sketchTokens.default.colors
 const textTokens = sketchTokens.default.text
 const prominenceTokens = sketchTokens.default.prominence
