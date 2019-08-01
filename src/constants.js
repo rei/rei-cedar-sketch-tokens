@@ -1,4 +1,4 @@
-export const SIZES_GROUP_TITLE = 'Sizes'
+export const SIZES_GROUP_TITLE = 'Ξ REDLINES Ξ'
 export const SKETCH_PATH_DELIMITER = ' / '
 export const TOKEN_DELIMITER = '-'
 export const TOKEN_COMBINATOR = ' + '

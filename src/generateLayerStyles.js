@@ -52,9 +52,10 @@ function generateBorderAndFillStyles(colorTokens) {
 
 function generateProminenceStyles(prominenceTokens) {
     return prominenceTokens.map(prominenceToken => {
+        const prominenceString = prominenceToken.value[0].y + 'px'
         return {
             name: createSketchPath(
-                tokenToArray(prominenceToken.name),
+                ['Prominence', prominenceString].concat(tokenToArray(prominenceToken.name, 2)),
                 prominenceToken.name
             ),
             style: {
@@ -68,16 +69,20 @@ function generateProminenceStyles(prominenceTokens) {
 function generateInsetStyles(insetTokens) {
     const insetStyles = []
     insetTokens.forEach(insetToken => {
+        // let sizeString = insetToken.value.map(val => val + 'px').join(' ')
+        let sizeString = (insetToken.value[1] || insetToken.value[0]) + 'px'
+
         // TODO: these should come from the token repo
         const leftRightTokenSuffix = '-left-right'
         const topBottomSuffix = '-top-bottom'
+
         const insetTokenNames = insetToken.value.length > 1
             ? [insetToken.name, insetToken.name + leftRightTokenSuffix, insetToken.name + topBottomSuffix]
             : [insetToken.name]
         insetTokenNames.forEach(insetTokenName => {
             insetStyles.push({
                 name: createSketchPath(
-                    [SIZES_GROUP_TITLE].concat(tokenToArray(insetTokenName, 2)),
+                    [SIZES_GROUP_TITLE, 'Inset', sizeString].concat(tokenToArray(insetToken.name, 3)),
                     insetTokenName
                 ),
                 style: {
@@ -118,9 +123,12 @@ function generateSpacingStyles(spacingTokens) {
 
 function generateRadiusStyles(radiusTokens) {
     return radiusTokens.map(radiusToken => {
+        const radiusString = typeof radiusToken.value == 'number'
+            ? radiusToken.value + 'px'
+            : radiusToken.value // when value = "50%"
         return {
             name: createSketchPath(
-                [SIZES_GROUP_TITLE].concat(tokenToArray(radiusToken.name)),
+                [SIZES_GROUP_TITLE, 'Radius', radiusString].concat(tokenToArray(radiusToken.name, 2)),
                 radiusToken.name
             ),
             style: nullStyle

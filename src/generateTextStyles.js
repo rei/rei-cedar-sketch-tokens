@@ -11,8 +11,10 @@ export default function generateTextStyles(textTokens, colorTokens) {
                 const textColorPath = tokenToArray(textColorToken.name, 3)
                 const textTokenPath = tokenToArray(textToken.name, 2)
                 const textStylePath = [textAlign.name].concat(textTokenPath, textColorPath)
+                const tokenNames = [textColorToken.name, textToken.name]
+                if (textAlign.css != '') tokenNames.push(textAlign.css)
                 textStyles.push({
-                    name: createSketchPath(textStylePath, [textColorToken.name, textToken.name]),
+                    name: createSketchPath(textStylePath, tokenNames),
                     style: {
                         lineHeight: textToken.value.lineHeight,
                         fontSize: textToken.value.fontSize,
@@ -33,14 +35,17 @@ export default function generateTextStyles(textTokens, colorTokens) {
 const textAlignment = [
     {
         name: 'Left',
-        value: Text.Alignment.left
+        value: Text.Alignment.left,
+        css: '' // 'text-align:left' is default css
     },
     {
         name: 'Center',
-        value: Text.Alignment.center
+        value: Text.Alignment.center,
+        css: 'text-align:center'
     },
     {
         name: 'Right',
-        value: Text.Alignment.right
+        value: Text.Alignment.right,
+        css: 'text-align:right'
     },
 ]
