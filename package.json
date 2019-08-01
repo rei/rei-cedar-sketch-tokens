@@ -30,14 +30,12 @@
     "start": "skpm-build --watch --run",
     "postinstall": "npm run build && skpm-link"
   },
-  "dependencies": {
+  "devDependencies": {
     "@rei/cdr-tokens": "^1.1.1",
     "@rei/cdr-tokens-v1.1": "npm:@rei/cdr-tokens@~1.1",
     "@rei/cdr-tokens-v1.2": "npm:@rei/cdr-tokens@~1.2.0-alpha",
     "@skpm/builder": "^0.7.0",
-    "@skpm/fs": "^0.2.5"
-  },
-  "devDependencies": {
+    "@skpm/fs": "^0.2.5",
     "eslint": "^6.1.0",
     "eslint-config-sketch": "^0.2.4"
   }
