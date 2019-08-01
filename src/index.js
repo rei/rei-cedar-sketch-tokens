@@ -1,11 +1,12 @@
 import sketch from 'sketch'
-import generateColors from './generateColors.js';
-import generateTextStyles from './generateTextStyles.js';
-import generateLayerStyles from './generateLayerStyles.js';
-import setStyles from './setStyles.js';
+import generateColors from './Partials/generateColors.js';
+import generateTextStyles from './Partials/generateTextStyles.js';
+import generateLayerStyles from './Partials/generateLayerStyles.js';
+import setStyles from './Partials/setStyles.js';
 
 /**
  * TODO:
+ * Add logo
  * add options for updating multiple versions
  * import token repo
  */
