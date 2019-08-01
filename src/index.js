@@ -6,9 +6,6 @@ import setStyles from './setStyles.js';
 
 /**
  * TODO:
- * add better token update matching - name independent
- * add px value prefix to sizes
- * add layer export for grid style
  * add options for updating multiple versions
  * import token repo
  */

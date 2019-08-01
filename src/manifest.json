@@ -21,25 +21,25 @@
     {
       "name": "Overwrite All",
       "identifier": "overwrite-all",
-      "script": "script.js",
+      "script": "index.js",
       "handler": "overwriteAll"
     },
     {
       "name": "Delete all Styles & Assets",
       "identifier": "delete-all",
-      "script": "script.js",
+      "script": "index.js",
       "handler": "deleteAll"
     },
     {
       "name": "Delete and Overwrite All",
       "identifier": "delete-and-overwrite-all",
-      "script": "script.js",
+      "script": "index.js",
       "handler": "deleteAndOverwriteAll"
     },
     {
       "name": "Symbol Test",
       "identifier": "symbol-test",
-      "script": "script.js",
+      "script": "index.js",
       "handler": "createSymbol"
     }
   ]
