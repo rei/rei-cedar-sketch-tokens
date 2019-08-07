@@ -4,11 +4,5 @@
     <item>
       <enclosure url="https://github.com/rei/rei-cedar-sketch-tokens/releases/download/v0.3.0/rei-cedar-sketch-tokens.sketchplugin.zip" sparkle:version="0.3.0"/>
     </item>
-    <item>
-      <enclosure url="https://github.com/rei/rei-cedar-sketch-tokens/releases/download/v0.2.1/rei-cedar-sketch-tokens.sketchplugin.zip" sparkle:version="0.2.1"/>
-    </item>
-    <item>
-      <enclosure url="https://github.com/rei/rei-cedar-sketch-tokens/releases/download/v0.2.0/rei-cedar-sketch-tokens.zip" sparkle:version="0.2.0"/>
-    </item>
   </channel>
 </rss>
