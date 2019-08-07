@@ -72,7 +72,7 @@ function generateInsetStyles(insetTokens) {
     const insetStyles = []
     insetTokens
         // filter out top,bottom,left,right tokens...
-        .filter(insetToken => !insetToken.endsWith(leftRightTokenSuffix) && !insetToken.endsWith(topBottomSuffix)) // 
+        .filter(insetToken => !insetToken.name.endsWith(leftRightTokenSuffix) && !insetToken.name.endsWith(topBottomSuffix)) // 
         .forEach(insetToken => {
 
             let sizeString = (insetToken.value[1] || insetToken.value[0]) + 'px'
@@ -105,24 +105,26 @@ function generateInsetStyles(insetTokens) {
 }
 
 function generateSpacingStyles(spacingTokens) {
-    return spacingTokens.map(spaceToken => {
-        const sizeString = spaceToken.value + 'px'
-        return {
-            name: createSketchPath(
-                [PATHS.sizes, 'Space', sizeString].concat(tokenToArray(spaceToken.name, 2)),
-                spaceToken.name
-            ),
-            style: {
-                fills: [{
-                    color: REDLINE_COLORS.space + "11"
-                }],
-                borders: [{
-                    color: REDLINE_COLORS.space + "22",
-                    position: Style.BorderPosition.Inside
-                }]
+    return spacingTokens
+        .filter(spaceToken => !spaceToken.name.includes('inset'))
+        .map(spaceToken => {
+            const sizeString = spaceToken.value + 'px'
+            return {
+                name: createSketchPath(
+                    [PATHS.sizes, 'Space', sizeString].concat(tokenToArray(spaceToken.name, 2)),
+                    spaceToken.name
+                ),
+                style: {
+                    fills: [{
+                        color: REDLINE_COLORS.space + "11"
+                    }],
+                    borders: [{
+                        color: REDLINE_COLORS.space + "22",
+                        position: Style.BorderPosition.Inside
+                    }]
+                }
             }
-        }
-    })
+        })
 }
 
 function generateRadiusStyles(radiusTokens) {
