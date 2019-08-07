@@ -47,7 +47,7 @@ function overwriteColors(context) {
   document.colors = generateColors(colorTokens);
 }
 function overwriteTextStyles(context) {
-  setStyles(document, document.sharedTextStyles, generateTextStyles(textTokens, colorTokens), true)
+  setStyles(document, document.sharedTextStyles, generateTextStyles(vNextTextTokens, colorTokens), true)
 }
 function overwriteLayerStyles(context) {
   setStyles(document, document.sharedLayerStyles, generateLayerStyles(colorTokens, prominenceTokens, spacingTokens, radiusTokens))

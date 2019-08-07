@@ -1,10 +1,11 @@
 import { Text } from 'sketch'
 import fontWeightTableLookup from './fontWeightTable';
-import { tokenToArray, createSketchPath } from './utils';
+import { tokenToArray, createSketchPath } from './utils'
 import sketchPathMap from '../Resources/sketch-paths-map'
+import { PATHS } from './constants';
 
 export default function generateTextStyles(textTokens, colorTokens) {
-    console.log(sketchPathMap);
+    // console.log(sketchPathMap);
     const textStyles = []
     const textColorTokens = colorTokens.filter(color => color.type === 'text')
     textTokens.forEach(textToken => {
@@ -12,22 +13,35 @@ export default function generateTextStyles(textTokens, colorTokens) {
             textAlignment.forEach(textAlign => {
                 const textColorPath = tokenToArray(textColorToken.name, 3)
                 const textTokenPath = tokenToArray(textToken.name, 2)
-                const textStylePath = [textAlign.name].concat(textTokenPath, textColorPath)
+                const textStylePath = [textAlign.name, PATHS.gridOptions, textTokenPath, textColorPath].flat()
                 const tokenNames = [textColorToken.name, textToken.name]
                 if (textAlign.css != '') tokenNames.push(textAlign.css)
+                const style = {
+                    lineHeight: textToken.value.lineHeight,
+                    fontSize: textToken.value.fontSize,
+                    fontFamily: textToken.value.fontFamily,
+                    fontWeight: fontWeightTableLookup(textToken.value.fontFamily, textToken.value.fontWeightOriginal),
+                    textTransform: textToken.value.textTransform,
+                    textColor: textColorToken.value,
+                    alignment: textAlign.value,
+                    borders: []
+                }
+
                 textStyles.push({
                     name: createSketchPath(textStylePath, tokenNames),
-                    style: {
-                        lineHeight: textToken.value.lineHeight,
-                        fontSize: textToken.value.fontSize,
-                        fontFamily: textToken.value.fontFamily,
-                        fontWeight: fontWeightTableLookup(textToken.value.fontFamily, textToken.value.fontWeightOriginal),
-                        textTransform: textToken.value.textTransform,
-                        textColor: textColorToken.value,
-                        alignment: textAlign.value,
-                        borders: []
-                    }
+                    style: style
                 })
+
+                if (sketchPathMap[textToken.name] != null) {
+                    sketchPathMap[textToken.name].forEach((sketchPath, i) => {
+                        const fullSketchPath = [textAlign.name].concat(sketchPath, textColorPath)
+                        textStyles.push({
+                            name: createSketchPath(fullSketchPath, tokenNames.concat([`ex${i}`])),
+                            style: style
+                        })
+                    })
+                }
+
             })
         })
     })
