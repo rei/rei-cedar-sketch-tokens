@@ -38,16 +38,16 @@ const textAlignment = [
     {
         name: 'Left',
         value: Text.Alignment.left,
-        css: '' // 'text-align:left' is default css
+        css: '' // 'cdr-text-align-left' is default css
     },
     {
         name: 'Center',
         value: Text.Alignment.center,
-        css: 'text-align:center'
+        css: 'cdr-text-align-center'
     },
     {
         name: 'Right',
         value: Text.Alignment.right,
-        css: 'text-align:right'
+        css: 'cdr-text-align-right'
     },
 ]
