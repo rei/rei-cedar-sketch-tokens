@@ -11,25 +11,25 @@ import setStyles from './Partials/setStyles.js';
  * import token repo
  */
 
-import * as sketchTokens from '@rei/cdr-tokens-v1.2/dist/sketch/sketch.json'
-const colorTokens = sketchTokens.default.colors
-const textTokens = sketchTokens.default.text
-const prominenceTokens = sketchTokens.default.prominence
-const spacingTokens = sketchTokens.default.spacing
-const radiusTokens = sketchTokens.default.radius
+import * as sketchTokens_v_1_2 from '@rei/cdr-tokens-v1.2/dist/sketch/sketch.json'
 // console.log(sketchTokens.default);
 
-import * as vNextSketchTokens from './Resources/sketch-v-next-tokens.json'
-const vNextTextTokens = vNextSketchTokens.default.text
-const vNextProminenceTokens = vNextSketchTokens.default.prominence
+import * as sketchTokens_v_next from './Resources/sketch-v-next-tokens.json'
 // console.log(vNextSketchTokens.default);
 
 const document = sketch.getSelectedDocument()
 
-export function overwriteAll(context) {
-  overwriteColors()
-  overwriteTextStyles()
-  overwriteLayerStyles()
+export function overwriteAll_v_1_2(context) {
+  _overwriteAll(sketchTokens_v_1_2)
+}
+export function overwriteAllV_v_next(context) {
+  _overwriteAll(sketchTokens_v_next)
+}
+
+function _overwriteAll(tokenSet) {
+  overwriteColors(tokenSet)
+  overwriteTextStyles(tokenSet)
+  overwriteLayerStyles(tokenSet)
 }
 
 export function deleteAll(context) {
@@ -40,15 +40,22 @@ export function deleteAll(context) {
 
 export function deleteAndOverwriteAll(context) {
   deleteAll(context)
-  overwriteAll(context)
+  _overwriteAll(sketchTokens_v_next)
 }
 
-function overwriteColors(context) {
+function overwriteColors(tokenSet) {
+  const colorTokens = tokenSet.default.colors
   document.colors = generateColors(colorTokens);
 }
-function overwriteTextStyles(context) {
-  setStyles(document, document.sharedTextStyles, generateTextStyles(vNextTextTokens, colorTokens), true)
+function overwriteTextStyles(tokenSet) {
+  const colorTokens = tokenSet.default.colors
+  const textTokens = tokenSet.default.text
+  setStyles(document, document.sharedTextStyles, generateTextStyles(textTokens, colorTokens), true)
 }
-function overwriteLayerStyles(context) {
+function overwriteLayerStyles(tokenSet) {
+  const prominenceTokens = tokenSet.default.prominence
+  const spacingTokens = tokenSet.default.spacing
+  const radiusTokens = tokenSet.default.radius
+  const colorTokens = tokenSet.default.colors
   setStyles(document, document.sharedLayerStyles, generateLayerStyles(colorTokens, prominenceTokens, spacingTokens, radiusTokens))
 }

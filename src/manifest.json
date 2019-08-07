@@ -11,26 +11,33 @@
   "menu": {
     "title": "Cedar Token Generator",
     "items": [
-      "overwrite-all",
+      "overwrite-all-v-1-2",
+      "overwrite-all-v-next",
       "delete-all",
       "delete-and-overwrite-all"
     ]
   },
   "commands": [
     {
-      "name": "Overwrite All",
-      "identifier": "overwrite-all",
+      "name": "Overwrite All - v1.2",
+      "identifier": "overwrite-all-v-1-2",
       "script": "index.js",
-      "handler": "overwriteAll"
+      "handler": "overwriteAll_v_1_2"
     },
     {
-      "name": "Delete all Styles & Assets",
+      "name": "Overwrite All - vNext",
+      "identifier": "overwrite-all-v-next",
+      "script": "index.js",
+      "handler": "overwriteAllV_v_next"
+    },
+    {
+      "name": "Delete All Styles & Assets",
       "identifier": "delete-all",
       "script": "index.js",
       "handler": "deleteAll"
     },
     {
-      "name": "Delete and Overwrite All",
+      "name": "Delete & Overwrite All - vNext",
       "identifier": "delete-and-overwrite-all",
       "script": "index.js",
       "handler": "deleteAndOverwriteAll"
