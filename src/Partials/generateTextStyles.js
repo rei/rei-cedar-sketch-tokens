@@ -1,8 +1,10 @@
 import { Text } from 'sketch'
 import fontWeightTableLookup from './fontWeightTable';
 import { tokenToArray, createSketchPath } from './utils';
+import sketchPathMap from '../Resources/sketch-paths-map'
 
 export default function generateTextStyles(textTokens, colorTokens) {
+    console.log(sketchPathMap);
     const textStyles = []
     const textColorTokens = colorTokens.filter(color => color.type === 'text')
     textTokens.forEach(textToken => {
