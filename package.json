@@ -18,7 +18,7 @@
   "skpm": {
     "name": "rei-cedar-sketch-tokens",
     "manifest": "src/manifest.json",
-    "main": "rei-cedar-sketch-tokens",
+    "main": "rei-cedar-sketch-tokens.sketchplugin",
     "assets": [
       "assets/**/*"
     ],
