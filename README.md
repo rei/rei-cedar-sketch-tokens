@@ -3,7 +3,7 @@ A sketch plugin that prints out cedar tokens as sketch assets
 
 ## Installation
 
-- [Download](../../releases/latest/download/rei-cedar-sketch-tokens.zip) the latest release of the plugin
+- [Download](../../releases/latest/download/rei-cedar-sketch-tokens.sketchplugin.zip) the latest release of the plugin
 - Un-zip
 - Double-click on rei-cedar-sketch-tokens
 
