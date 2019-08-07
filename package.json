@@ -5,12 +5,12 @@
   "author": "James Bradford",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rei/rei-cedar-sketch-tokens.sketchplugin/issues"
+    "url": "https://github.com/rei/rei-cedar-sketch-tokens/issues"
   },
-  "homepage": "https://github.com/rei/rei-cedar-sketch-tokens.sketchplugin#readme",
+  "homepage": "https://github.com/rei/rei-cedar-sketch-tokens#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rei/rei-cedar-sketch-tokens.sketchplugin.git"
+    "url": "git+https://github.com/rei/rei-cedar-sketch-tokens.git"
   },
   "engines": {
     "sketch": ">=49.0"
@@ -18,7 +18,7 @@
   "skpm": {
     "name": "rei-cedar-sketch-tokens",
     "manifest": "src/manifest.json",
-    "main": "rei-cedar-sketch-tokens.sketchplugin",
+    "main": "rei-cedar-sketch-tokens",
     "assets": [
       "assets/**/*"
     ],

@@ -6,7 +6,7 @@
   "version": "1.0.0",
   "description": "A sketch plugin that prints out cedar tokens as sketch assets",
   "authorEmail": "jabradf@rei.com",
-  "homepage": "https://github.com/rei/rei-cedar-sketch-tokens.sketchplugin",
+  "homepage": "https://github.com/rei/rei-cedar-sketch-tokens",
   "name": "CedarTokenGenerator",
   "menu": {
     "title": "Cedar Token Generator",
