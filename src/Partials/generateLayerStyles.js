@@ -67,36 +67,40 @@ function generateProminenceStyles(prominenceTokens) {
 }
 
 function generateInsetStyles(insetTokens) {
+    const leftRightTokenSuffix = '-left-right'
+    const topBottomSuffix = '-top-bottom'
     const insetStyles = []
-    insetTokens.forEach(insetToken => {
-        // let sizeString = insetToken.value.map(val => val + 'px').join(' ')
-        let sizeString = (insetToken.value[1] || insetToken.value[0]) + 'px'
+    insetTokens
+        // filter out top,bottom,left,right tokens...
+        .filter(insetToken => !insetToken.endsWith(leftRightTokenSuffix) && !insetToken.endsWith(topBottomSuffix)) // 
+        .forEach(insetToken => {
 
-        // TODO: these should come from the token repo
-        const leftRightTokenSuffix = '-left-right'
-        const topBottomSuffix = '-top-bottom'
+            let sizeString = (insetToken.value[1] || insetToken.value[0]) + 'px'
 
-        const insetTokenNames = insetToken.value.length > 1
-            ? [insetToken.name, insetToken.name + leftRightTokenSuffix, insetToken.name + topBottomSuffix]
-            : [insetToken.name]
-        insetTokenNames.forEach(insetTokenName => {
-            insetStyles.push({
-                name: createSketchPath(
-                    [PATHS.sizes, 'Inset', sizeString].concat(tokenToArray(insetToken.name, 3)),
-                    insetTokenName
-                ),
-                style: {
-                    fills: [{
-                        color: REDLINE_COLORS.inset + "11"
-                    }],
-                    borders: [{
-                        color: REDLINE_COLORS.inset + "22",
-                        position: Style.BorderPosition.Inside
-                    }]
-                }
+            // add top,bottom,left,right back in a more controlled manner
+            const insetTokenNames = insetToken.value.length > 1
+                ? [insetToken.name, insetToken.name + leftRightTokenSuffix, insetToken.name + topBottomSuffix]
+                : [insetToken.name]
+
+            insetTokenNames.forEach(insetTokenName => {
+                insetStyles.push({
+                    name: createSketchPath(
+                        [PATHS.sizes, 'Inset', sizeString].concat(tokenToArray(insetToken.name, 3)),
+                        insetTokenName
+                    ),
+                    style: {
+                        fills: [{
+                            color: REDLINE_COLORS.inset + "11"
+                        }],
+                        borders: [{
+                            color: REDLINE_COLORS.inset + "22",
+                            position: Style.BorderPosition.Inside
+                        }]
+                    }
+                })
             })
+
         })
-    })
     return insetStyles
 }
 
