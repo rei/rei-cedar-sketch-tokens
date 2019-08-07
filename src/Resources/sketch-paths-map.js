@@ -1,7 +1,5 @@
+import { PATHS } from "../Partials/constants";
 
-const usageFolder = "Expression"
-const smScreen = "Sm screen"
-const lgScreen = "Lg screen"
 
 // TODO:
 // its not ideal for this plugin to know about specific tokens its consuming.
@@ -9,52 +7,52 @@ const lgScreen = "Lg screen"
 export default {
 
     "cdr-text-heading-700": [
-        [usageFolder, "Page Title", smScreen],
-        [usageFolder, "Section Heading", lgScreen]
+        [PATHS.contextualUsages, "Page Title", PATHS.screenSmall],
+        [PATHS.contextualUsages, "Section Heading", PATHS.screenLarge]
     ],
     "cdr-text-heading-800": [
-        [usageFolder, "Page Title", lgScreen]
+        [PATHS.contextualUsages, "Page Title", PATHS.screenLarge]
     ],
 
     "cdr-text-subheading-300": [
-        [usageFolder, "Subtitle", smScreen]
+        [PATHS.contextualUsages, "Subtitle", PATHS.screenSmall]
     ],
     "cdr-text-subheading-400": [
-        [usageFolder, "Subtitle", lgScreen],
-        [usageFolder, "Subheadline", smScreen]
+        [PATHS.contextualUsages, "Subtitle", PATHS.screenLarge],
+        [PATHS.contextualUsages, "Subheadline", PATHS.screenSmall]
     ],
 
     "cdr-text-heading-600": [
-        [usageFolder, "Section Heading", smScreen]
+        [PATHS.contextualUsages, "Section Heading", PATHS.screenSmall]
     ],
-    // "cdr-text-heading-700" : [lgScreen]
+    // "cdr-text-heading-700" : [PATHS.screenLarge]
 
     "cdr-text-heading-400": [
-        [usageFolder, "Subsection Heading", smScreen],
-        [usageFolder, "Sub-subsection Heading", lgScreen]
+        [PATHS.contextualUsages, "Subsection Heading", PATHS.screenSmall],
+        [PATHS.contextualUsages, "Sub-subsection Heading", PATHS.screenLarge]
     ],
     "cdr-text-heading-500": [
-        [usageFolder, "Subsection Heading", lgScreen]
+        [PATHS.contextualUsages, "Subsection Heading", PATHS.screenLarge]
     ],
 
     "cdr-text-heading-300": [
-        [usageFolder, "Sub-subsection Heading", smScreen]
+        [PATHS.contextualUsages, "Sub-subsection Heading", PATHS.screenSmall]
     ],
 
     "cdr-text-display-800": [
-        [usageFolder, "Headline", smScreen],
+        [PATHS.contextualUsages, "Headline", PATHS.screenSmall],
     ],
     "cdr-text-display-900": [
-        [usageFolder, "Headline", lgScreen],
+        [PATHS.contextualUsages, "Headline", PATHS.screenLarge],
     ],
 
-    // "cdr-text-subheading-400" : [smScreen]
+    // "cdr-text-subheading-400" : [PATHS.screenSmall]
     "cdr-text-subheading-500": [
-        [usageFolder, "Subheadline", lgScreen],
+        [PATHS.contextualUsages, "Subheadline", PATHS.screenLarge],
     ],
 
     // "cdr-text-label-100": [ // doesn't exist yet
-    //     [usageFolder, "Heading Label"],
+    //     [PATHS.contextualUsages, "Heading Label"],
     // ],
 
 }

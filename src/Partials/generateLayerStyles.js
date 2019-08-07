@@ -1,6 +1,6 @@
 import { tokenToArray, createSketchPath } from "./utils";
 import { Style } from 'sketch'
-import { SIZES_GROUP_TITLE, REDLINE_COLORS, DONT_USE_WARNING, SKETCH_PATH_DELIMITER } from "./constants";
+import { PATHS, REDLINE_COLORS, SKETCH_PATH_DELIMITER } from "./constants";
 
 export default function generateLayerStyles(colorTokens, prominenceTokens, spacingTokens, radiusTokens) {
     return [].concat(
@@ -82,7 +82,7 @@ function generateInsetStyles(insetTokens) {
         insetTokenNames.forEach(insetTokenName => {
             insetStyles.push({
                 name: createSketchPath(
-                    [SIZES_GROUP_TITLE, 'Inset', sizeString].concat(tokenToArray(insetToken.name, 3)),
+                    [PATHS.sizes, 'Inset', sizeString].concat(tokenToArray(insetToken.name, 3)),
                     insetTokenName
                 ),
                 style: {
@@ -105,7 +105,7 @@ function generateSpacingStyles(spacingTokens) {
         const sizeString = spaceToken.value + 'px'
         return {
             name: createSketchPath(
-                [SIZES_GROUP_TITLE, 'Space', sizeString].concat(tokenToArray(spaceToken.name, 2)),
+                [PATHS.sizes, 'Space', sizeString].concat(tokenToArray(spaceToken.name, 2)),
                 spaceToken.name
             ),
             style: {
@@ -128,7 +128,7 @@ function generateRadiusStyles(radiusTokens) {
             : radiusToken.value // when value = "50%"
         return {
             name: createSketchPath(
-                [SIZES_GROUP_TITLE, 'Radius', radiusString].concat(tokenToArray(radiusToken.name, 2)),
+                [PATHS.sizes, 'Radius', radiusString].concat(tokenToArray(radiusToken.name, 2)),
                 radiusToken.name
             ),
             style: nullStyle
@@ -138,7 +138,7 @@ function generateRadiusStyles(radiusTokens) {
 
 function generateGridStyles() {
     return [{
-        name: [SIZES_GROUP_TITLE, 'Grid'].join(SKETCH_PATH_DELIMITER),
+        name: [PATHS.sizes, 'Grid'].join(SKETCH_PATH_DELIMITER),
         style: {
             fills: [{
                 color: REDLINE_COLORS.grid + "11"
@@ -154,7 +154,7 @@ function generateGridStyles() {
 function generateExtraStyles() {
     return [
         {
-            name: [SIZES_GROUP_TITLE, DONT_USE_WARNING].join(SKETCH_PATH_DELIMITER),
+            name: [PATHS.sizes, PATHS.dontUse].join(SKETCH_PATH_DELIMITER),
             style: nullStyle
         },
         {
