@@ -9,18 +9,19 @@ import setStyles from './Partials/setStyles.js';
  * Use the actual v1.2 when it comes out
  */
 
+// this is actually v1.1 - not v1.2 as the npm distro says
 import * as sketchTokens_v_1_1 from '@rei/cdr-tokens-v1.2/dist/sketch/sketch.json'
-// console.log(sketchTokens.default);
+// console.log(sketchTokens_v_1_1.default);
 
 import * as sketchTokens_v_next from './Resources/sketch-v-next-tokens.json'
-// console.log(vNextSketchTokens.default); 
+// console.log(sketchTokens_v_next.default); 
 
 const document = sketch.getSelectedDocument()
 
 export function overwriteAll_v_1_1(context) {
   _overwriteAll(sketchTokens_v_1_1)
 }
-export function overwriteAllV_v_next(context) {
+export function overwriteAll_v_next(context) {
   _overwriteAll(sketchTokens_v_next)
 }
 
@@ -42,18 +43,14 @@ export function deleteAndOverwriteAll(context) {
 }
 
 function overwriteColors(tokenSet) {
-  const colorTokens = tokenSet.default.colors
-  document.colors = generateColors(colorTokens);
+  const { colors } = tokenSet.default
+  document.colors = generateColors(colors);
 }
 function overwriteTextStyles(tokenSet) {
-  const colorTokens = tokenSet.default.colors
-  const textTokens = tokenSet.default.text
-  setStyles(document, document.sharedTextStyles, generateTextStyles(textTokens, colorTokens), true)
+  const { colors, text } = tokenSet.default
+  setStyles(document, generateTextStyles(text, colors), true)
 }
 function overwriteLayerStyles(tokenSet) {
-  const prominenceTokens = tokenSet.default.prominence
-  const spacingTokens = tokenSet.default.spacing
-  const radiusTokens = tokenSet.default.radius
-  const colorTokens = tokenSet.default.colors
-  setStyles(document, document.sharedLayerStyles, generateLayerStyles(colorTokens, prominenceTokens, spacingTokens, radiusTokens))
+  const { prominence, spacing, radius, colors } = tokenSet.default
+  setStyles(document, generateLayerStyles(colors, prominence, spacing, radius))
 }

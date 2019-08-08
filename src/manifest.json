@@ -28,7 +28,7 @@
       "name": "Overwrite All - vNext",
       "identifier": "overwrite-all-v-next",
       "script": "index.js",
-      "handler": "overwriteAllV_v_next"
+      "handler": "overwriteAll_v_next"
     },
     {
       "name": "Delete All Styles & Assets",
