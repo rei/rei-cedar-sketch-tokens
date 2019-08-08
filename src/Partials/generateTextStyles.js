@@ -12,8 +12,7 @@ export default function generateTextStyles(textTokens, colorTokens) {
             // textAlignment.forEach(textAlign => {
             const textColorPath = tokenToArray(textColorToken.name, 3)
             const textTokenPath = tokenToArray(textToken.name, 2)
-            // const textStylePath = [textAlign.name, PATHS.gridOptions, textTokenPath, textColorPath].flat()
-            const textStylePath = [textTokenPath, textColorPath].flat()
+            const textStylePath = [textTokenPath, textColorPath].flat() // [textAlign.name, PATHS.gridOptions, textTokenPath, textColorPath].flat()
             const tokenNames = [textColorToken.name, textToken.name]
             // if (textAlign.css != '') tokenNames.push(textAlign.css)
             const style = {
@@ -23,8 +22,7 @@ export default function generateTextStyles(textTokens, colorTokens) {
                 fontWeight: fontWeightTableLookup(textToken.value.fontFamily, textToken.value.fontWeightOriginal),
                 textTransform: textToken.value.textTransform,
                 textColor: textColorToken.value,
-                alignment: Text.Alignment.left,
-                // alignment: textAlign.value,
+                alignment: Text.Alignment.left, // textAlign.value
                 borders: []
             }
 
@@ -35,8 +33,7 @@ export default function generateTextStyles(textTokens, colorTokens) {
 
             if (sketchPathMap[textToken.name] != null) {
                 sketchPathMap[textToken.name].forEach((sketchPath, i) => {
-                    // const fullSketchPath = [textAlign.name].concat(sketchPath, textColorPath)
-                    const fullSketchPath = sketchPath.concat(textColorPath)
+                    const fullSketchPath = sketchPath.concat(textColorPath) // [textAlign.name].concat(sketchPath, textColorPath)
                     textStyles.push({
                         name: createSketchPath(fullSketchPath, tokenNames.concat([`ex${i}`])),
                         style: style
