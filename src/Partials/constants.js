@@ -6,9 +6,12 @@ export const PATHS = {
     sizes: 'Ξ REDLINES Ξ', // Ξ alphabatizes last
     dontUse: '! DONT USE THESE LAYER STYLES !',
     gridOptions: 'Options',
-    contextualUsages: 'Expressions',
+    contextualUsages: 'Contextual:',
     screenSmall: 'Sm Screen',
     screenLarge: 'Lg Screen',
+    title: 'Title',
+    heading: 'Heading',
+    headline: 'Headline',
 }
 
 export const REDLINE_COLORS = {
