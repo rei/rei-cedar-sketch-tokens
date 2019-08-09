@@ -20,7 +20,9 @@ export const createSketchPathTwo = (sketchPathArray = [], nameArray = [], tokens
     const PATH_TOKEN_DELIMITER = ' \\ '
     const tokenNames = typeof tokens == 'string' ? tokens : tokens.join(TOKEN_COMBINATOR)
     const styleName = nameArray.join(' ')
-    const sketchStylePath = [sketchPathArray, styleName].flat().join(SKETCH_PATH_DELIMITER)
+    const sketchStylePath = styleName.length == 0
+        ? sketchPathArray.join(SKETCH_PATH_DELIMITER)
+        : [sketchPathArray, styleName].flat().join(SKETCH_PATH_DELIMITER)
     const sketchStylePathWithTokens = sketchStylePath + PATH_TOKEN_DELIMITER + tokenNames
     return sketchStylePathWithTokens
 }
