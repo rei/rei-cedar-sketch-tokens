@@ -3,18 +3,27 @@ import fontWeightTableLookup from './fontWeightTable';
 import { tokenToArray, createSketchPath, createSketchPathTwo } from './utils'
 import sketchPathMap from '../Resources/sketch-paths-map'
 import { PATHS } from './constants';
-import cdrTextLinkStyle from '../Resources/cdr-text-link';
+import { cdrTextLinkStyle, maybeExclude } from '../Resources/cdr-text-link';
 
 export default function generateTextStyles(textTokens, colorTokens) {
     const textStyles = []
     const textColorTokens = colorTokens.filter(color => color.type === 'text')
     textTokens.forEach(textToken => {
         const isDefaultText = textToken.name.includes('default')
+        let textTokenPath = tokenToArray(textToken.name, 2)
+
+        if (textToken.name.includes('compact')) {
+            // TODO: BAD Special case just for now
+            textTokenPath.pop()
+            textTokenPath[textTokenPath.length - 1] += ' Compact'
+        }
 
         textColorTokens.forEach(textColorToken => {
+
+            if (maybeExclude(textToken.name, textColorToken.name)) return
+
             // textAlignment.forEach(textAlign => {
             const textColorPath = tokenToArray(textColorToken.name, 3)
-            const textTokenPath = tokenToArray(textToken.name, 2)
             const textStylePath = [textTokenPath, textColorPath].flat() // [textAlign.name, PATHS.gridOptions, textTokenPath, textColorPath].flat()
             const tokenNames = [textColorToken.name, textToken.name]
             // if (textAlign.css != '') tokenNames.push(textAlign.css)

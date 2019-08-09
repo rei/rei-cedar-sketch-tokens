@@ -8,7 +8,7 @@ import setStyles from './Partials/setStyles.js';
  * TODO:
  * Use the actual v1.2 when it comes out
  * group based on the path:sring[] when it comes out - more flatter
- * add link style
+ * REMOVE BAD SPECIAL CASES...
  */
 
 // this is actually v1.1 - not v1.2 as the npm distro says
