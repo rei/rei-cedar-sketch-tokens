@@ -8,27 +8,27 @@ export const tokenToArray = (tokenName, trim = 1) => {
         .map(substring => stringCapitalizeFistLetter(substring))
 }
 
-export const createSketchPath = (sketchPathArray = [], tokens = []) => {
+export const createSketchPath = (sketchPathArray = [], nameArray = [], tokens = []) => {
     const tokenNames = typeof tokens == 'string' ? tokens : tokens.join(TOKEN_COMBINATOR)
 
     return sketchPathArray
-        .concat([tokenNames])
+        .concat(nameArray, [tokenNames])
         .join(SKETCH_PATH_DELIMITER)
 }
 
 export const createSketchPathTwo = (sketchPathArray = [], nameArray = [], tokens = []) => {
-
     const PATH_TOKEN_DELIMITER = ' \\ '
-
     const tokenNames = typeof tokens == 'string' ? tokens : tokens.join(TOKEN_COMBINATOR)
-
     const styleName = nameArray.join(' ')
-
     const sketchStylePath = [sketchPathArray, styleName].flat().join(SKETCH_PATH_DELIMITER)
-
     const sketchStylePathWithTokens = sketchStylePath + PATH_TOKEN_DELIMITER + tokenNames
-
     return sketchStylePathWithTokens
+}
+
+export function zeroPadNumber(num, size = 2) {
+    // https://stackoverflow.com/a/2998822/5648839
+    var s = "000000000" + num;
+    return s.substr(s.length - size);
 }
 
 export const stringCapitalizeFistLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1)
