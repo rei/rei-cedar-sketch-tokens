@@ -13,6 +13,7 @@ export interface ISketchTokens {
 export interface ISketchToken {
     name: string, // "cdr-type-subtype-whatever"
     value: any, // overriden
+    path: string[], // nesting path
 }
 
 export interface ISketchColorToken extends ISketchToken { // https://developer.sketch.com/reference/api/#color-asset
