@@ -1,6 +1,6 @@
 import { Text } from 'sketch'
 import fontWeightTableLookup from './fontWeightTable';
-import { tokenToArray, createSketchPath } from './utils'
+import { tokenToArray, createSketchPath, createSketchPathTwo } from './utils'
 import sketchPathMap from '../Resources/sketch-paths-map'
 import { PATHS } from './constants';
 
@@ -27,7 +27,7 @@ export default function generateTextStyles(textTokens, colorTokens) {
             }
 
             textStyles.push({
-                name: createSketchPath(textStylePath, tokenNames),
+                name: createSketchPathTwo(textTokenPath, textColorPath, tokenNames),
                 style: style
             })
 

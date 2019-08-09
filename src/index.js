@@ -7,6 +7,8 @@ import setStyles from './Partials/setStyles.js';
 /**
  * TODO:
  * Use the actual v1.2 when it comes out
+ * More Flatter 
+ * add 0s to pixel values
  */
 
 // this is actually v1.1 - not v1.2 as the npm distro says

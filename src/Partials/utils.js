@@ -8,12 +8,27 @@ export const tokenToArray = (tokenName, trim = 1) => {
         .map(substring => stringCapitalizeFistLetter(substring))
 }
 
-export const createSketchPath = (tokenArray = [], tokenNames = []) => {
-    const tokenName = typeof tokenNames == 'string' ? tokenNames : tokenNames.join(TOKEN_COMBINATOR)
+export const createSketchPath = (sketchPathArray = [], tokens = []) => {
+    const tokenNames = typeof tokens == 'string' ? tokens : tokens.join(TOKEN_COMBINATOR)
 
-    return tokenArray
-        .concat([tokenName])
+    return sketchPathArray
+        .concat([tokenNames])
         .join(SKETCH_PATH_DELIMITER)
+}
+
+export const createSketchPathTwo = (sketchPathArray = [], nameArray = [], tokens = []) => {
+
+    const PATH_TOKEN_DELIMITER = ' \\ '
+
+    const tokenNames = typeof tokens == 'string' ? tokens : tokens.join(TOKEN_COMBINATOR)
+
+    const styleName = nameArray.join(' ')
+
+    const sketchStylePath = [sketchPathArray, styleName].flat().join(SKETCH_PATH_DELIMITER)
+
+    const sketchStylePathWithTokens = sketchStylePath + PATH_TOKEN_DELIMITER + tokenNames
+
+    return sketchStylePathWithTokens
 }
 
 export const stringCapitalizeFistLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1)
@@ -43,7 +58,7 @@ export function MSRectOfAllPageLayers(page) {
 }
 
 export function getSharedStyleTokenName(sharedStyleName) {
-    const afterTheLastSlachRegEx = /[^/]+$/ig
+    const afterTheLastSlachRegEx = /[^/\\]+$/ig
     const tokenNameResults = afterTheLastSlachRegEx.exec(sharedStyleName)
     return tokenNameResults[0]
 }
