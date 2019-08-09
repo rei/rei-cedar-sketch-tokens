@@ -3,11 +3,14 @@ import fontWeightTableLookup from './fontWeightTable';
 import { tokenToArray, createSketchPath, createSketchPathTwo } from './utils'
 import sketchPathMap from '../Resources/sketch-paths-map'
 import { PATHS } from './constants';
+import cdrTextLinkStyle from '../Resources/cdr-text-link';
 
 export default function generateTextStyles(textTokens, colorTokens) {
     const textStyles = []
     const textColorTokens = colorTokens.filter(color => color.type === 'text')
     textTokens.forEach(textToken => {
+        const isDefaultText = textToken.name.includes('default')
+
         textColorTokens.forEach(textColorToken => {
             // textAlignment.forEach(textAlign => {
             const textColorPath = tokenToArray(textColorToken.name, 3)
@@ -42,6 +45,13 @@ export default function generateTextStyles(textTokens, colorTokens) {
                         style: style
                     })
                 })
+            }
+
+            if (isDefaultText && textColorToken.name.includes('link')) {
+                textStyles.push(cdrTextLinkStyle({
+                    name: createSketchPathTwo(textTokenPath, textColorPath, tokenNames),
+                    style: style
+                }))
             }
 
             // })

@@ -6,7 +6,7 @@ export const PATHS = {
     sizes: 'Ξ REDLINES Ξ', // Ξ alphabatizes last
     dontUse: '! DONT USE THESE LAYER STYLES !',
     gridOptions: 'Options',
-    contextualUsages: 'Contextual:',
+    contextualUsages: 'Contextual',
     screenSmall: 'Sm Screen',
     screenLarge: 'Lg Screen',
     title: 'Title',
