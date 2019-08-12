@@ -3,7 +3,7 @@ import fontWeightTableLookup from './fontWeightTable';
 import { tokenToArray, createSketchPath, createSketchPathTwo } from './utils'
 import sketchPathMap from '../Resources/sketch-paths-map'
 import { PATHS } from './constants';
-import { cdrTextLinkStyle, maybeExclude } from '../Resources/cdr-text-link';
+import { cdrTextLinkStyle, isRare } from '../Resources/cdr-text-link';
 
 export default function generateTextStyles(textTokens, colorTokens) {
     const textStyles = []
@@ -20,7 +20,7 @@ export default function generateTextStyles(textTokens, colorTokens) {
 
         textColorTokens.forEach(textColorToken => {
 
-            if (maybeExclude(textToken.name, textColorToken.name)) return
+            if (isRare(textToken.name, textColorToken.name)) return
 
             // textAlignment.forEach(textAlign => {
             const textColorPath = tokenToArray(textColorToken.name, 3)
