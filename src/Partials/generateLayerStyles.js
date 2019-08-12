@@ -21,10 +21,7 @@ function generateBorderAndFillStyles(colorTokens) {
         // .filter(colorToken => colorToken.type !== 'text') // keeping text styles for flexibility
         .forEach(colorToken => {
 
-            // const colorTokenNameArray = tokenToArray(colorToken.name, 2)
-            // const colorTokenSketchPath = colorTokenNameArray.shift()
             const colorTokenPath = tokenPathToTrimSketchPath(colorToken.path, 1, 2, 1)
-
 
             const name = createSketchName(
                 colorTokenPath,

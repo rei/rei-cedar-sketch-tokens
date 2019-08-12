@@ -36,30 +36,20 @@ export function tokenPathToTrimSketchPath(tokenPath, trimFromFront, joinFromBack
 }
 
 export function trimSketchPath(sketchPath, trimFromFront = 0, joinFromBack = 0, insureFront = 0) {
+
+    // trim the front
     let trimmedSketchPath = sketchPath.slice(trimFromFront)
-    // const ensuredPath = trimmedSketchPath.slice(0, ensureFront)
-    // trimmedSketchPath = trimmedSketchPath.slice(ensureFront)
+
+    // insure count at the front
     const [ensuredPath, uninsuredPath] = arraySplitAtIndex(trimmedSketchPath, insureFront)
+
+    // join the tail
     const depth = Math.max(uninsuredPath.length - joinFromBack - 1, 0)
     const [remainingPath, tailPath] = arraySplitAtIndex(uninsuredPath, depth)
     const joinedTail = tailPath.join(' ')
 
-
-
-    // trimmedSketchPath = trimmedSketchPath.slice(0, depth).join(' ')
-    // trimmedSketchPath.push(joinedTail)
+    // flatten in all together
     return [ensuredPath, remainingPath, joinedTail].flat()
-
-    // // trim from front
-    // let trimmed = sketchPath.slice(trimFromFront)
-
-    // // join back elements 
-    // const depth = trimmed.length - joinFromBack - 1
-    // const joinedTail = trimmed.slice(depth).join(' ')
-    // const joinedFromBack = trimmed.splice(depth, joinFromBack, joinedTail)
-
-    // // trimmed.push(joinedTail)
-    // return joinedFromBack
 }
 
 export function tokenPathToSketchPath(tokenPath) {
