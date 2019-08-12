@@ -93,8 +93,8 @@ function generateInsetStyles(insetTokens) {
             insetTokenNames.forEach(insetTokenName => {
                 insetStyles.push({
                     name: createSketchPathTwo(
-                        [PATHS.sizes, 'Inset'],
-                        [sizeValue].concat(tokenToArray(insetToken.name, 3)),
+                        [PATHS.sizes, 'Inset', sizeValue],
+                        tokenToArray(insetToken.name, 3),
                         insetTokenName
                     ),
                     style: {
