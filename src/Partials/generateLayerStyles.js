@@ -54,14 +54,14 @@ function generateBorderAndFillStyles(colorTokens) {
 
 function generateProminenceStyles(prominenceTokens) {
     return prominenceTokens.map(prominenceToken => {
-        let prominenceValue = zeroPadNumber(prominenceToken.value[0].y) + 'px'
-
-        const prominenceTokenNameArray = tokenToArray(prominenceToken.name, 2)
+        const prominenceValue = zeroPadNumber(prominenceToken.value[0].y) + 'px'
+        const prominenceTokenPathRaw = prominenceToken.path || prominenceToken.value[0].path // TODO: theres a bug, it should be: prominenceTokenPath
+        prominenceTokenPathRaw.splice(1, 0, prominenceValue)
+        const prominenceTokenPath = tokenPathToTrimSketchPath(prominenceTokenPathRaw, 0, 1)
 
         return {
-            name: createSketchNameTwo(
-                ['Prominence'],
-                [prominenceValue, prominenceTokenNameArray].flat(),
+            name: createSketchName(
+                prominenceTokenPath,
                 prominenceToken.name
             ),
             style: {
@@ -82,6 +82,10 @@ function generateInsetStyles(insetTokens) {
         .forEach(insetToken => {
 
             let sizeValue = zeroPadNumber((insetToken.value[1] || insetToken.value[0])) + 'px'
+            const insetTokenPathRaw = insetToken.path.slice()
+            insetTokenPathRaw.splice(2, 0, sizeValue)
+            insetTokenPathRaw[0] = PATHS.sizes
+            const insetTokenPath = tokenPathToTrimSketchPath(insetTokenPathRaw)
 
             // add top,bottom,left,right back in a more controlled manner
             const insetTokenNames = insetToken.value.length > 1
@@ -89,10 +93,10 @@ function generateInsetStyles(insetTokens) {
                 : [insetToken.name]
 
             insetTokenNames.forEach(insetTokenName => {
+
                 insetStyles.push({
-                    name: createSketchNameTwo(
-                        [PATHS.sizes, 'Inset'],
-                        [sizeValue].concat(tokenToArray(insetToken.name, 3)),
+                    name: createSketchName(
+                        insetTokenPath,
                         insetTokenName
                     ),
                     style: {
@@ -115,13 +119,14 @@ function generateSpacingStyles(spacingTokens) {
     return spacingTokens
         .filter(spaceToken => !spaceToken.name.includes('inset'))
         .map(spaceToken => {
-            const sizeString = zeroPadNumber(spaceToken.value) + 'px'
+            const sizeValue = zeroPadNumber(spaceToken.value) + 'px'
+            const spaceTokenPathRaw = spaceToken.path.slice()
+            spaceTokenPathRaw.splice(1, 0, sizeValue)
+            spaceTokenPathRaw.unshift(PATHS.sizes)
+            const spaceTokenPath = tokenPathToTrimSketchPath(spaceTokenPathRaw, 0, 1)
+
             return {
-                name: createSketchNameTwo(
-                    [PATHS.sizes, 'Space'],
-                    [sizeString].concat(tokenToArray(spaceToken.name, 2)),
-                    spaceToken.name
-                ),
+                name: createSketchName(spaceTokenPath, spaceToken.name),
                 style: {
                     fills: [{
                         color: REDLINE_COLORS.space + "11"
@@ -137,15 +142,16 @@ function generateSpacingStyles(spacingTokens) {
 
 function generateRadiusStyles(radiusTokens) {
     return radiusTokens.map(radiusToken => {
-        const radiusString = typeof radiusToken.value == 'number'
+        const radiusValue = typeof radiusToken.value == 'number'
             ? zeroPadNumber(radiusToken.value) + 'px'
             : radiusToken.value // when value = "50%"
+
+        const radiusTokenPathRaw = radiusToken.path || tokenToArray(radiusToken.name, 1) // TODO: bug again, no path
+        radiusTokenPathRaw.splice(1, 0, radiusValue)
+        radiusTokenPathRaw.unshift(PATHS.sizes)
+        const radiusTokenPath = tokenPathToTrimSketchPath(radiusTokenPathRaw, 0, 1)
         return {
-            name: createSketchNameTwo(
-                [PATHS.sizes, 'Radius'],
-                [radiusString].concat(tokenToArray(radiusToken.name, 2)),
-                radiusToken.name
-            ),
+            name: createSketchName(radiusTokenPath, radiusToken.name),
             style: nullStyle
         }
     })

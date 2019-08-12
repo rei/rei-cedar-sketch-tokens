@@ -27,24 +27,20 @@ export default function generateTextStyles(textTokens, colorTokens) {
             // textAlignment.forEach(textAlign => {
             // if (textAlign.className != '') tokenNames.push(textAlign.className)
 
-            const style = {
-                lineHeight: textToken.value.lineHeight,
-                fontSize: textToken.value.fontSize,
-                fontFamily: textToken.value.fontFamily,
-                fontWeight: fontWeightTableLookup(textToken.value.fontFamily, textToken.value.fontWeightOriginal),
-                textTransform: textToken.value.textTransform,
-                textColor: textColorToken.value,
-                alignment: Text.Alignment.left, // textAlign.value
-                borders: []
+            const textStyle = {
+                name: createSketchName(textTokenPath.concat(textColorTokenPath), tokenNames),
+                style: {
+                    lineHeight: textToken.value.lineHeight,
+                    fontSize: textToken.value.fontSize,
+                    fontFamily: textToken.value.fontFamily,
+                    fontWeight: fontWeightTableLookup(textToken.value.fontFamily, textToken.value.fontWeightOriginal),
+                    textTransform: textToken.value.textTransform,
+                    textColor: textColorToken.value,
+                    alignment: Text.Alignment.left, // textAlign.value
+                    borders: []
+                }
             }
-
-            textStyles.push({
-                name: createSketchName(
-                    textTokenPath.concat(textColorTokenPath),
-                    tokenNames
-                ),
-                style: style
-            })
+            textStyles.push(textStyle)
 
             if (sketchPathMap[textToken.name] != null) {
                 sketchPathMap[textToken.name].forEach((sketchPath, i) => {
@@ -52,16 +48,13 @@ export default function generateTextStyles(textTokens, colorTokens) {
                         name: createSketchName(
                             sketchPath.concat(textColorTokenPath),
                             tokenNames.concat([`ex${i}`])),
-                        style: style
+                        style: textStyle.style
                     })
                 })
             }
 
             if (textToken.name.includes('default') && textColorToken.name.includes('link')) {
-                textStyles.push(cdrTextLinkStyle({
-                    name: createSketchNameTwo(textTokenPath, textColorPath, tokenNames),
-                    style: style
-                }))
+                textStyles.push(cdrTextLinkStyle(textStyle))
             }
 
             // })
