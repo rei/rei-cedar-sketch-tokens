@@ -11,11 +11,12 @@ import setStyles from './Partials/setStyles.js';
  * REMOVE BAD SPECIAL CASES...
  */
 
-// this is actually v1.1 - not v1.2 as the npm distro says
-import * as sketchTokens_v_1_1 from '@rei/cdr-tokens-v1.2/dist/sketch/sketch.json'
+// this is actually v1.1 - not v1.2 as the npm distro says - TODO: fix alias
+// import * as sketchTokens_v_1_1 from '@rei/cdr-tokens-v1.2/dist/sketch/sketch.json'
+import * as sketchTokens_v_1_1 from './Resources/sketch-tokens-v-1-1.json'
 // console.log(sketchTokens_v_1_1.default);
 
-import * as sketchTokens_v_next from './Resources/sketch-v-next-tokens.json'
+import * as sketchTokens_v_next from './Resources/sketch-tokens-v-next.json'
 // console.log(sketchTokens_v_next.default); 
 
 const document = sketch.getSelectedDocument()
