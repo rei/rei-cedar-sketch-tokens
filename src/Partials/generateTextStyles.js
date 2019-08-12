@@ -1,6 +1,6 @@
 import { Text } from 'sketch'
 import fontWeightTableLookup from './fontWeightTable';
-import { tokenToArray, createSketchPath, createSketchPathTwo } from './utils'
+import { tokenToArray, createSketchPath, createSketchPathTwo, tokenPathToSketchPath, tokenPathToTrimSketchPath } from './utils'
 import sketchPathMap from '../Resources/sketch-paths-map'
 import { PATHS } from './constants';
 import { cdrTextLinkStyle, isRare } from '../Resources/cdr-text-link';
@@ -8,23 +8,28 @@ import { cdrTextLinkStyle, isRare } from '../Resources/cdr-text-link';
 export default function generateTextStyles(textTokens, colorTokens) {
     const textStyles = []
     const textColorTokens = colorTokens.filter(color => color.type === 'text')
-    textTokens.forEach(textToken => {
+    textTokens.forEach((textToken, i) => {
         const isDefaultText = textToken.name.includes('default')
-        let textTokenPath = tokenToArray(textToken.name, 2)
+        // let textTokenPath = tokenToArray(textToken.name, 2)
+        if (textToken.path[textToken.path.length - 1] == 'height')
+            textToken.path.pop() // remove 'height' from the end of text path
 
-        if (textToken.name.includes('compact')) {
-            // TODO: BAD Special case just for now
-            textTokenPath.pop()
-            textTokenPath[textTokenPath.length - 1] += ' Compact'
-        }
+        const textTokenPath = tokenPathToTrimSketchPath(textToken.path, 1)
 
         textColorTokens.forEach(textColorToken => {
+            const textColorTokenPath = tokenPathToTrimSketchPath(textColorToken.path, 2, 2)
+
+            if (i == 0) {
+                log(textColorToken.path.join(' '))
+                log(textColorTokenPath)
+            }
+
 
             if (isRare(textToken.name, textColorToken.name)) return
 
             // textAlignment.forEach(textAlign => {
             const textColorPath = tokenToArray(textColorToken.name, 3)
-            const textStylePath = [textTokenPath, textColorPath].flat() // [textAlign.name, PATHS.gridOptions, textTokenPath, textColorPath].flat()
+            // const textStylePath = [textTokenPath, textColorPath].flat() // [textAlign.name, PATHS.gridOptions, textTokenPath, textColorPath].flat()
             const tokenNames = [textColorToken.name, textToken.name]
             // if (textAlign.css != '') tokenNames.push(textAlign.css)
 
@@ -40,7 +45,7 @@ export default function generateTextStyles(textTokens, colorTokens) {
             }
 
             textStyles.push({
-                name: createSketchPathTwo(textTokenPath, textColorPath, tokenNames),
+                name: createSketchPathTwo(textTokenPath.concat(textColorTokenPath), [], tokenNames),
                 style: style
             })
 

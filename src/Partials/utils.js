@@ -27,8 +27,26 @@ export const createSketchPathTwo = (sketchPathArray = [], nameArray = [], tokens
     return sketchStylePathWithTokens
 }
 
-export function tokenPathToSketchPath(pathArray) {
-    return pathArray.map(path => kebabCaseToCapitalCase(path))
+export function tokenPathToTrimSketchPath(tokenPath, trimFromFront, Depth) {
+    return trimSketchPath(
+        tokenPathToSketchPath(tokenPath),
+        trimFromFront,
+        Depth
+    )
+}
+
+export function trimSketchPath(sketchPath, trimFromFront = 0, trimFromBack = 0) {
+
+    const depth = sketchPath.length - trimFromBack - 1
+    const trimmedSketchPath = sketchPath.splice(trimFromFront, depth)
+    if (trimFromBack > 0)
+        trimmedSketchPath.push()
+
+    return trimmedSketchPath
+}
+
+export function tokenPathToSketchPath(tokenPath) {
+    return tokenPath.map(path => kebabCaseToCapitalCase(path))
 }
 
 export function kebabCaseToCapitalCase(string) {
