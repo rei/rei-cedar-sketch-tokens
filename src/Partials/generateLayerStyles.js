@@ -1,4 +1,4 @@
-import { tokenToArray, createSketchName, createSketchNameTwo, zeroPadNumber } from "./utils";
+import { tokenToArray, createSketchName, createSketchNameTwo, zeroPadNumber, tokenPathToTrimSketchPath } from "./utils";
 import { Style } from 'sketch'
 import { PATHS, REDLINE_COLORS, SKETCH_PATH_DELIMITER } from "./constants";
 
@@ -21,12 +21,13 @@ function generateBorderAndFillStyles(colorTokens) {
         // .filter(colorToken => colorToken.type !== 'text') // keeping text styles for flexibility
         .forEach(colorToken => {
 
-            const colorTokenNameArray = tokenToArray(colorToken.name, 2)
-            const colorTokenSketchPath = colorTokenNameArray.shift()
+            // const colorTokenNameArray = tokenToArray(colorToken.name, 2)
+            // const colorTokenSketchPath = colorTokenNameArray.shift()
+            const colorTokenPath = tokenPathToTrimSketchPath(colorToken.path, 1, 2, 1)
 
-            const name = createSketchNameTwo(
-                colorTokenSketchPath,
-                colorTokenNameArray,
+
+            const name = createSketchName(
+                colorTokenPath,
                 colorToken.name
             )
 

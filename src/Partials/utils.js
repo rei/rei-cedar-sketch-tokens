@@ -26,20 +26,40 @@ export const createSketchNameTwo = (sketchPathArray = [], nameArray = [], tokens
     return sketchStylePathWithTokens
 }
 
-export function tokenPathToTrimSketchPath(tokenPath, trimFromFront, Depth) {
+export function tokenPathToTrimSketchPath(tokenPath, trimFromFront, joinFromBack, insureFront) {
     return trimSketchPath(
         tokenPathToSketchPath(tokenPath),
         trimFromFront,
-        Depth
+        joinFromBack,
+        insureFront
     )
 }
 
-export function trimSketchPath(sketchPath, trimFromFront = 0, joinFromBack = 0) {
-    const depth = sketchPath.length - joinFromBack - 1
-    const trimmedSketchPath = sketchPath.slice(trimFromFront, depth)
-    const joinedTail = sketchPath.slice(depth).join(' ')
-    trimmedSketchPath.push(joinedTail)
-    return trimmedSketchPath
+export function trimSketchPath(sketchPath, trimFromFront = 0, joinFromBack = 0, insureFront = 0) {
+    let trimmedSketchPath = sketchPath.slice(trimFromFront)
+    // const ensuredPath = trimmedSketchPath.slice(0, ensureFront)
+    // trimmedSketchPath = trimmedSketchPath.slice(ensureFront)
+    const [ensuredPath, uninsuredPath] = arraySplitAtIndex(trimmedSketchPath, insureFront)
+    const depth = Math.max(uninsuredPath.length - joinFromBack - 1, 0)
+    const [remainingPath, tailPath] = arraySplitAtIndex(uninsuredPath, depth)
+    const joinedTail = tailPath.join(' ')
+
+
+
+    // trimmedSketchPath = trimmedSketchPath.slice(0, depth).join(' ')
+    // trimmedSketchPath.push(joinedTail)
+    return [ensuredPath, remainingPath, joinedTail].flat()
+
+    // // trim from front
+    // let trimmed = sketchPath.slice(trimFromFront)
+
+    // // join back elements 
+    // const depth = trimmed.length - joinFromBack - 1
+    // const joinedTail = trimmed.slice(depth).join(' ')
+    // const joinedFromBack = trimmed.splice(depth, joinFromBack, joinedTail)
+
+    // // trimmed.push(joinedTail)
+    // return joinedFromBack
 }
 
 export function tokenPathToSketchPath(tokenPath) {
@@ -54,6 +74,10 @@ export function zeroPadNumber(num, size = 2) {
     // https://stackoverflow.com/a/2998822/5648839
     var s = "000000000" + num;
     return s.substr(s.length - size);
+}
+
+export function arraySplitAtIndex(array, index) {
+    return [array.slice(0, index), array.slice(index)]
 }
 
 export const stringCapitalizeFistLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1)
