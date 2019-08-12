@@ -8,14 +8,14 @@ export const tokenToArray = (tokenName, trim = 1) => {
         .map(substring => stringCapitalizeFistLetter(substring))
 }
 
-export const createSketchPath = (sketchPath = [], tokens = []) => {
+export const createSketchName = (sketchPath = [], tokens = []) => {
     const tokenNames = typeof tokens == 'string' ? tokens : tokens.join(TOKEN_COMBINATOR)
     const sketchStylePath = sketchPath.join(SKETCH_PATH_DELIMITER)
     const sketchStylePathWithTokens = sketchStylePath + PATH_TOKEN_DELIMITER + tokenNames
     return sketchStylePathWithTokens
 }
 
-export const createSketchPathTwo = (sketchPathArray = [], nameArray = [], tokens = []) => {
+export const createSketchNameTwo = (sketchPathArray = [], nameArray = [], tokens = []) => {
     const PATH_TOKEN_DELIMITER = ' \\ '
     const tokenNames = typeof tokens == 'string' ? tokens : tokens.join(TOKEN_COMBINATOR)
     const styleName = nameArray.join(' ')

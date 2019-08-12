@@ -1,6 +1,6 @@
 import { Text } from 'sketch'
 import fontWeightTableLookup from './fontWeightTable';
-import { tokenToArray, createSketchPath, createSketchPathTwo, tokenPathToSketchPath, tokenPathToTrimSketchPath } from './utils'
+import { tokenToArray, createSketchName, createSketchNameTwo, tokenPathToSketchPath, tokenPathToTrimSketchPath } from './utils'
 import sketchPathMap from '../Resources/sketch-paths-map'
 import { PATHS } from './constants';
 import { cdrTextLinkStyle, isRare } from '../Resources/cdr-text-link';
@@ -39,7 +39,7 @@ export default function generateTextStyles(textTokens, colorTokens) {
             }
 
             textStyles.push({
-                name: createSketchPath(
+                name: createSketchName(
                     textTokenPath.concat(textColorTokenPath),
                     tokenNames
                 ),
@@ -49,7 +49,7 @@ export default function generateTextStyles(textTokens, colorTokens) {
             if (sketchPathMap[textToken.name] != null) {
                 sketchPathMap[textToken.name].forEach((sketchPath, i) => {
                     textStyles.push({
-                        name: createSketchPath(
+                        name: createSketchName(
                             sketchPath.concat(textColorTokenPath),
                             tokenNames.concat([`ex${i}`])),
                         style: style
@@ -59,7 +59,7 @@ export default function generateTextStyles(textTokens, colorTokens) {
 
             if (textToken.name.includes('default') && textColorToken.name.includes('link')) {
                 textStyles.push(cdrTextLinkStyle({
-                    name: createSketchPathTwo(textTokenPath, textColorPath, tokenNames),
+                    name: createSketchNameTwo(textTokenPath, textColorPath, tokenNames),
                     style: style
                 }))
             }

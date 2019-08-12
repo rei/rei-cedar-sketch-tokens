@@ -1,4 +1,4 @@
-import { tokenToArray, createSketchPath, createSketchPathTwo, zeroPadNumber } from "./utils";
+import { tokenToArray, createSketchName, createSketchNameTwo, zeroPadNumber } from "./utils";
 import { Style } from 'sketch'
 import { PATHS, REDLINE_COLORS, SKETCH_PATH_DELIMITER } from "./constants";
 
@@ -24,7 +24,7 @@ function generateBorderAndFillStyles(colorTokens) {
             const colorTokenNameArray = tokenToArray(colorToken.name, 2)
             const colorTokenSketchPath = colorTokenNameArray.shift()
 
-            const name = createSketchPathTwo(
+            const name = createSketchNameTwo(
                 colorTokenSketchPath,
                 colorTokenNameArray,
                 colorToken.name
@@ -61,7 +61,7 @@ function generateProminenceStyles(prominenceTokens) {
         const prominenceTokenNameArray = tokenToArray(prominenceToken.name, 2)
 
         return {
-            name: createSketchPathTwo(
+            name: createSketchNameTwo(
                 ['Prominence'],
                 [prominenceValue, prominenceTokenNameArray].flat(),
                 prominenceToken.name
@@ -80,7 +80,7 @@ function generateInsetStyles(insetTokens) {
     const insetStyles = []
     insetTokens
         // filter out top,bottom,left,right tokens...
-        .filter(insetToken => !insetToken.name.endsWith(leftRightTokenSuffix) && !insetToken.name.endsWith(topBottomSuffix)) // 
+        .filter(insetToken => !insetToken.name.endsWith(leftRightTokenSuffix) && !insetToken.name.endsWith(topBottomSuffix))
         .forEach(insetToken => {
 
             let sizeValue = zeroPadNumber((insetToken.value[1] || insetToken.value[0])) + 'px'
@@ -92,7 +92,7 @@ function generateInsetStyles(insetTokens) {
 
             insetTokenNames.forEach(insetTokenName => {
                 insetStyles.push({
-                    name: createSketchPathTwo(
+                    name: createSketchNameTwo(
                         [PATHS.sizes, 'Inset'],
                         [sizeValue].concat(tokenToArray(insetToken.name, 3)),
                         insetTokenName
@@ -119,7 +119,7 @@ function generateSpacingStyles(spacingTokens) {
         .map(spaceToken => {
             const sizeString = zeroPadNumber(spaceToken.value) + 'px'
             return {
-                name: createSketchPathTwo(
+                name: createSketchNameTwo(
                     [PATHS.sizes, 'Space'],
                     [sizeString].concat(tokenToArray(spaceToken.name, 2)),
                     spaceToken.name
@@ -143,7 +143,7 @@ function generateRadiusStyles(radiusTokens) {
             ? zeroPadNumber(radiusToken.value) + 'px'
             : radiusToken.value // when value = "50%"
         return {
-            name: createSketchPathTwo(
+            name: createSketchNameTwo(
                 [PATHS.sizes, 'Radius'],
                 [radiusString].concat(tokenToArray(radiusToken.name, 2)),
                 radiusToken.name
