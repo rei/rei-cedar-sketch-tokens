@@ -1,6 +1,7 @@
 export const SKETCH_PATH_DELIMITER = ' / '
 export const TOKEN_DELIMITER = '-'
 export const TOKEN_COMBINATOR = ' + '
+export const PATH_TOKEN_DELIMITER = ' \\ '
 
 export const PATHS = {
     sizes: 'Ξ REDLINES Ξ', // Ξ alphabatizes last

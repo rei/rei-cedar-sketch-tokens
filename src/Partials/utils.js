@@ -1,4 +1,4 @@
-import { TOKEN_DELIMITER, TOKEN_COMBINATOR, SKETCH_PATH_DELIMITER } from "./constants";
+import { TOKEN_DELIMITER, TOKEN_COMBINATOR, SKETCH_PATH_DELIMITER, PATH_TOKEN_DELIMITER } from "./constants";
 
 // UTIL FUNCTIONS //
 export const tokenToArray = (tokenName, trim = 1) => {
@@ -8,12 +8,11 @@ export const tokenToArray = (tokenName, trim = 1) => {
         .map(substring => stringCapitalizeFistLetter(substring))
 }
 
-export const createSketchPath = (sketchPathArray = [], nameArray = [], tokens = []) => {
+export const createSketchPath = (sketchPath = [], tokens = []) => {
     const tokenNames = typeof tokens == 'string' ? tokens : tokens.join(TOKEN_COMBINATOR)
-
-    return sketchPathArray
-        .concat(nameArray, [tokenNames])
-        .join(SKETCH_PATH_DELIMITER)
+    const sketchStylePath = sketchPath.join(SKETCH_PATH_DELIMITER)
+    const sketchStylePathWithTokens = sketchStylePath + PATH_TOKEN_DELIMITER + tokenNames
+    return sketchStylePathWithTokens
 }
 
 export const createSketchPathTwo = (sketchPathArray = [], nameArray = [], tokens = []) => {
@@ -37,16 +36,9 @@ export function tokenPathToTrimSketchPath(tokenPath, trimFromFront, Depth) {
 
 export function trimSketchPath(sketchPath, trimFromFront = 0, joinFromBack = 0) {
     const depth = sketchPath.length - joinFromBack - 1
-    // log(`depth: ${depth}; sketchPath.length: ${sketchPath.length}; joinFromBack: ${joinFromBack};`)
-    // log(`${sketchPath.length} - ${joinFromBack} - ${1} = ${sketchPath.length - joinFromBack - 1}`)
     const trimmedSketchPath = sketchPath.slice(trimFromFront, depth)
     const joinedTail = sketchPath.slice(depth).join(' ')
     trimmedSketchPath.push(joinedTail)
-    // log(joinedTail)
-
-    // if (joinFromBack > 0)
-    //     trimmedSketchPath.push(sketchPath.splice(depth).join(' '))
-
     return trimmedSketchPath
 }
 
