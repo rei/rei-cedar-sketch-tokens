@@ -27,6 +27,14 @@ export const createSketchPathTwo = (sketchPathArray = [], nameArray = [], tokens
     return sketchStylePathWithTokens
 }
 
+export function tokenPathToSketchPath(pathArray) {
+    return pathArray.map(path => kebabCaseToCapitalCase(path))
+}
+
+export function kebabCaseToCapitalCase(string) {
+    return string.split('-').map(word => stringCapitalizeFistLetter(word)).join(' ')
+}
+
 export function zeroPadNumber(num, size = 2) {
     // https://stackoverflow.com/a/2998822/5648839
     var s = "000000000" + num;
