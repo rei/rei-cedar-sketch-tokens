@@ -17,7 +17,7 @@ export default function generateTextStyles(textTokens, colorTokens) {
         const textTokenPath = tokenPathToTrimSketchPath(textToken.path, 1)
 
         textColorTokens.forEach(textColorToken => {
-            const textColorTokenPath = tokenPathToTrimSketchPath(textColorToken.path, 2, 2)
+            const textColorTokenPath = tokenPathToTrimSketchPath(textColorToken.path, 2, 1)
 
             if (i == 0) {
                 log(textColorToken.path.join(' '))

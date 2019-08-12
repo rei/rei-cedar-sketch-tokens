@@ -35,12 +35,17 @@ export function tokenPathToTrimSketchPath(tokenPath, trimFromFront, Depth) {
     )
 }
 
-export function trimSketchPath(sketchPath, trimFromFront = 0, trimFromBack = 0) {
+export function trimSketchPath(sketchPath, trimFromFront = 0, joinFromBack = 0) {
+    const depth = sketchPath.length - joinFromBack - 1
+    // log(`depth: ${depth}; sketchPath.length: ${sketchPath.length}; joinFromBack: ${joinFromBack};`)
+    // log(`${sketchPath.length} - ${joinFromBack} - ${1} = ${sketchPath.length - joinFromBack - 1}`)
+    const trimmedSketchPath = sketchPath.slice(trimFromFront, depth)
+    const joinedTail = sketchPath.slice(depth).join(' ')
+    trimmedSketchPath.push(joinedTail)
+    // log(joinedTail)
 
-    const depth = sketchPath.length - trimFromBack - 1
-    const trimmedSketchPath = sketchPath.splice(trimFromFront, depth)
-    if (trimFromBack > 0)
-        trimmedSketchPath.push()
+    // if (joinFromBack > 0)
+    //     trimmedSketchPath.push(sketchPath.splice(depth).join(' '))
 
     return trimmedSketchPath
 }
