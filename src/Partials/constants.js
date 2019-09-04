@@ -17,5 +17,6 @@ export const PATHS = {
 export const REDLINE_COLORS = {
     space: "#FF7700", // orange
     grid: "#00DDFF", // turquoise
-    inset: "#00FF00" // green 
+    inset: "#00FF00", // green 
+    error: "#FF0000", // red 
 }

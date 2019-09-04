@@ -154,18 +154,32 @@ function generateRadiusStyles(radiusTokens) {
 }
 
 function generateGridStyles() {
-    return [{
-        name: [PATHS.sizes, 'Grid'].join(SKETCH_PATH_DELIMITER),
-        style: {
-            fills: [{
-                color: REDLINE_COLORS.grid + "11"
-            }],
-            borders: [{
-                color: REDLINE_COLORS.grid + "22",
-                position: Style.BorderPosition.Inside
-            }]
-        }
-    }]
+    return [
+        {
+            name: [PATHS.sizes, 'Grid'].join(SKETCH_PATH_DELIMITER),
+            style: {
+                fills: [{
+                    color: REDLINE_COLORS.grid + "11"
+                }],
+                borders: [{
+                    color: REDLINE_COLORS.grid + "22",
+                    position: Style.BorderPosition.Inside
+                }]
+            }
+        },
+        {
+            name: [PATHS.sizes, 'Error'].join(SKETCH_PATH_DELIMITER),
+            style: {
+                fills: [{
+                    color: REDLINE_COLORS.error + "11"
+                }],
+                borders: [{
+                    color: REDLINE_COLORS.error + "22",
+                    position: Style.BorderPosition.Inside
+                }]
+            }
+        },
+    ]
 }
 
 function generateExtraStyles() {
