@@ -1,9 +1,9 @@
 import { Text } from 'sketch'
-import fontWeightTableLookup from './fontWeightTable';
 import { tokenToArray, createSketchPath, createSketchPathTwo } from './utils'
 import sketchPathMap from '../Resources/sketch-paths-map'
 import { PATHS } from './constants';
 import { cdrTextLinkStyle, maybeExclude } from '../Resources/cdr-text-link';
+import { fontFamilyLookup, fontWeightTableLookup } from './fontWeightTable';
 
 export default function generateTextStyles(textTokens, colorTokens) {
     const textStyles = []
@@ -31,8 +31,9 @@ export default function generateTextStyles(textTokens, colorTokens) {
             const style = {
                 lineHeight: textToken.value.lineHeight,
                 fontSize: textToken.value.fontSize,
-                fontFamily: textToken.value.fontFamily,
-                fontWeight: fontWeightTableLookup(textToken.value.fontFamily, textToken.value.fontWeightOriginal),
+                fontFamily: fontFamilyLookup(textToken.value.fontFamily),
+                fontWeight: fontWeightTableLookup(textToken.value.fontWeightOriginal),
+                // fontWeight: textToken.value.fontWeight,
                 textTransform: textToken.value.textTransform,
                 textColor: textColorToken.value,
                 alignment: Text.Alignment.left, // textAlign.value
