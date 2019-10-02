@@ -36,6 +36,7 @@ export default function generateTextStyles(textTokens, colorTokens) {
                 // fontWeight: textToken.value.fontWeight,
                 textTransform: textToken.value.textTransform,
                 textColor: textColorToken.value,
+                kerning: Number(textToken.value.letterSpacing), // some are "0" ?
                 alignment: Text.Alignment.left, // textAlign.value
                 borders: []
             }
